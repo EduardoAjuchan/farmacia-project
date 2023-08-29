@@ -1,0 +1,12 @@
+#miAnchorPane {
+    -fx-background-color: #FF5733; /* Cambia el color a tu elección */
+}
+#ButtonUsers {
+    -fx-background-image: url("/images/usericon.png"); /* Cambia la imagen a tu elección */
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-size: 50px 50px;
+}
+.text-field-white-text {
+    -fx-text-fill: white;
+}
