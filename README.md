@@ -13,7 +13,7 @@ Este repositorio contiene el proyecto de un Sistema POS (Punto de Venta) diseña
 
 ## Capturas de Pantalla
 
-<div style="display: flex;">
+<div style="display: align = "center";">
   <img src="https://i.imgur.com/XikRebD.png" alt="Login" width="500"/>
   <img src="https://i.imgur.com/60EgZzD.png" alt="Menú Principal" width="500"/>
   <img src="https://i.imgur.com/cTjoQGE.png" alt="Menú Control de Usuarios" width="500"/>
