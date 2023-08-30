@@ -80,6 +80,9 @@
                </cursor>
             </ImageView>
          </graphic>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </JFXButton>
       <JFXButton focusTraversable="false" layoutX="300.0" layoutY="88.0" onAction="#onLimpiarButtonClick" style="-fx-background-color: #535b61;" text="limpiar" textFill="WHITE">
          <graphic>
