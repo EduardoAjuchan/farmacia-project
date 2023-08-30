@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1080.0" style="-fx-background-color: #1C2321;" styleClass="text-field-white-text" stylesheets="@../../../styles/styles.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.farmaciaproject.UserControl">
+<AnchorPane prefHeight="720.0" prefWidth="1080.0" style="-fx-background-color: #1C2321;" styleClass="text-field-white-text" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.farmaciaproject.UserControl">
    <children>
       <Label layoutX="408.0" layoutY="22.0" text="CONTROL DE USUARIOS" textFill="WHITE">
          <font>
@@ -24,26 +24,28 @@
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <TextField focusTraversable="false" layoutX="122.0" layoutY="65.0" promptText="Registra un usuario" style="-fx-background-color: #535b61;" />
+      <TextField fx:id="usuarioTextField" focusTraversable="false" layoutX="122.0" layoutY="65.0" promptText="Registra un usuario" style="-fx-background-color: #535b61;" styleClass="text-field-white-text" stylesheets="@../../../styles/styles.css" />
       <Label layoutX="28.0" layoutY="103.0" text="Contraseña" textFill="#b57edc">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <TextField focusTraversable="false" layoutX="123.0" layoutY="101.0" promptText="Registra una contraseña" style="-fx-background-color: #535b61;" />
+      <TextField fx:id="contrasenaTextField" focusTraversable="false" layoutX="123.0" layoutY="101.0" promptText="Registra una contraseña" style="-fx-background-color: #535b61;" styleClass="text-field-white-text" stylesheets="@../../../styles/styles.css" />
       <Label layoutX="28.0" layoutY="136.0" prefHeight="44.0" prefWidth="67.0" text="Tipo de usuario" textFill="#b57edc" wrapText="true">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <JFXComboBox focusColor="#b57edc" layoutX="123.0" layoutY="146.0" prefHeight="26.0" prefWidth="129.0" unFocusColor="#535b61" />
-      <TableView layoutX="28.0" layoutY="194.0" prefHeight="316.0" prefWidth="490.0" style="-fx-background-color: #1C2321;" styleClass="text-field-white-text" stylesheets="@../../../styles/styles.css">
-        <columns>
-          <TableColumn prefWidth="75.0" text="C1" />
-          <TableColumn prefWidth="75.0" text="C2" />
-        </columns>
+      <JFXComboBox fx:id="tipoUsuarioComboBox" focusColor="#b57edc" layoutX="123.0" layoutY="146.0" prefHeight="26.0" prefWidth="129.0" unFocusColor="#535b61" />
+      <TableView fx:id="usuariosTableView" layoutX="108.0" layoutY="191.0" prefHeight="469.0" prefWidth="878.0" style="-fx-background-color: #1C2321;" styleClass="text-field-white-text">
+         <columns>
+            <TableColumn fx:id="idColumn" text="ID" />
+            <TableColumn fx:id="usuarioColumn" prefWidth="500.0000305175781" text="Usuario" />
+            <TableColumn fx:id="contrasenaColumn" prefWidth="135.19998168945312" text="Contraseña" />
+            <TableColumn fx:id="tipoUsuarioColumn" prefWidth="159.20001220703125" text="Tipo de Usuario" />
+         </columns>
       </TableView>
-      <JFXButton contentDisplay="GRAPHIC_ONLY" focusTraversable="false" layoutX="442.0" layoutY="75.0" prefHeight="54.0" prefWidth="67.0" text="guardar" textFill="WHITE">
+      <JFXButton contentDisplay="GRAPHIC_ONLY" focusTraversable="false" layoutX="442.0" layoutY="75.0" onAction="#onGuardarButtonClick" prefHeight="54.0" prefWidth="67.0" text="guardar" textFill="WHITE">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
@@ -55,7 +57,7 @@
             </ImageView>
          </graphic>
       </JFXButton>
-      <JFXButton contentDisplay="GRAPHIC_ONLY" focusTraversable="false" layoutX="547.0" layoutY="78.0" text="modificar">
+      <JFXButton contentDisplay="GRAPHIC_ONLY" focusTraversable="false" layoutX="547.0" layoutY="78.0" onAction="#onModificarButtonClick" text="modificar">
          <graphic>
             <ImageView fitHeight="53.0" fitWidth="58.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -67,7 +69,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </JFXButton>
-      <JFXButton contentDisplay="GRAPHIC_ONLY" focusTraversable="false" layoutX="637.0" layoutY="77.0" prefHeight="62.0" prefWidth="70.0" text="eliminar">
+      <JFXButton contentDisplay="GRAPHIC_ONLY" focusTraversable="false" layoutX="637.0" layoutY="77.0" onAction="#onEliminarButtonClick" prefHeight="62.0" prefWidth="70.0" text="eliminar">
          <graphic>
             <ImageView fitHeight="58.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -79,7 +81,7 @@
             </ImageView>
          </graphic>
       </JFXButton>
-      <JFXButton focusTraversable="false" layoutX="300.0" layoutY="88.0" style="-fx-background-color: #535b61;" text="limpiar" textFill="WHITE">
+      <JFXButton focusTraversable="false" layoutX="300.0" layoutY="88.0" onAction="#onLimpiarButtonClick" style="-fx-background-color: #535b61;" text="limpiar" textFill="WHITE">
          <graphic>
             <ImageView fitHeight="39.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                <image>

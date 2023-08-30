@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DatabaseConnector {
 
@@ -81,6 +83,29 @@ public class DatabaseConnector {
             System.err.println("Error al eliminar usuario.");
             e.printStackTrace();
         }
+    }
+
+    public static List<Usuario> getAllUsuarios() {
+        List<Usuario> usuarios = new ArrayList<>();
+        Connection connection = getConnection();
+        String query = "SELECT * FROM usuarios";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
+
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String nombreUsuario = resultSet.getString("nombre_usuario");
+                String contrasena = resultSet.getString("contrasena");
+                String tipoUsuario = resultSet.getString("tipo_usuario");
+                Usuario usuario = new Usuario(id, nombreUsuario, contrasena, tipoUsuario);
+                usuarios.add(usuario);
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error al obtener usuarios.");
+            e.printStackTrace();
+        }
+        return usuarios;
     }
 }
 
