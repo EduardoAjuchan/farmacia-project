@@ -11,6 +11,7 @@ module com.example.farmaciaproject {
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
     requires com.jfoenix;
+    requires java.sql;
 
     opens com.example.farmaciaproject to javafx.fxml;
     exports com.example.farmaciaproject;

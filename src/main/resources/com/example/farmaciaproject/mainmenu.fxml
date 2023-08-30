@@ -8,21 +8,21 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="#miAnchorPane" prefHeight="1080.0" prefWidth="720.0" style="-fx-background-color: #1C2321;" stylesheets="@../../../styles/styles.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.farmaciaproject.MainMenuController">
+<AnchorPane id="#miAnchorPane" prefHeight="720.0" prefWidth="1080.0" style="-fx-background-color: #1C2321;" stylesheets="@../../../styles/styles.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.farmaciaproject.MainMenuController">
    <children>
-      <Label layoutX="337.0" layoutY="37.0" text="MENÚ PRINCIPAL" textFill="#f7f4f4" wrapText="true">
+      <Label layoutX="442.0" layoutY="39.0" text="MENÚ PRINCIPAL" textFill="#f7f4f4" wrapText="true">
          <font>
             <Font name="System Bold" size="23.0" />
          </font>
       </Label>
-      <JFXButton id="#ButtonUser" contentDisplay="CENTER" layoutX="657.0" layoutY="120.0" prefHeight="168.0" prefWidth="180.0" ripplerFill="WHITE" style="-fx-background-color: #0c9351;" stylesheets="@../../../styles/styles.css" text="Control de Usuarios" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+      <JFXButton fx:id="ButtonUser"  contentDisplay="GRAPHIC_ONLY" focusTraversable="false" layoutX="813.0" layoutY="120.0" prefHeight="168.0" prefWidth="180.0" ripplerFill="WHITE" style="-fx-background-color: #4ca1f5;" stylesheets="@../../../styles/styles.css" text="Control de Usuarios" textAlignment="CENTER" textFill="WHITE" wrapText="true">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
          <graphic>
             <ImageView fitHeight="150.0" fitWidth="200.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../image/usericon.png" />
+                  <Image url="@../../../image/icon-user.png" />
                </image>
             </ImageView>
          </graphic>
@@ -30,5 +30,27 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </JFXButton>
+      <Label focusTraversable="false" layoutX="834.0" layoutY="288.0" text="Control de usuarios" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <JFXButton contentDisplay="GRAPHIC_ONLY" focusTraversable="false" layoutX="546.0" layoutY="120.0" prefHeight="168.0" prefWidth="180.0" style="-fx-background-color: #dbb6ee;" text="Control de productos" textFill="WHITE">
+         <graphic>
+            <ImageView fitHeight="162.0" fitWidth="161.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../image/open-box-icon-vector-14948929-removebg-preview.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
+      <Label layoutX="561.0" layoutY="288.0" text="Control de productos" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
