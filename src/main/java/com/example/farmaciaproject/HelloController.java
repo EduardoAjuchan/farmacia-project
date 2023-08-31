@@ -24,21 +24,22 @@ public class HelloController {
 
     private void loadMainMenu() {
         try {
-            // Carga la escena mainmenu.fxml
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("mainmenu.fxml"));
             Parent root = fxmlLoader.load();
 
-            // Obtén el controlador de la escena mainmenu.fxml
             MainMenuController controller = fxmlLoader.getController();
+            controller.initialize(Main.getMainStage()); // Pasa la referencia de mainStage
 
-            // Establece el controlador para que pueda cambiar la escena
-            controller.setMainStage(mainStage);
+            controller.setMainStage(mainStage); // Configura el mainStage en el controlador MainMenuController
 
-            // Cambia a la escena mainmenu.fxml
-            mainStage.setScene(new Scene(root, 1080, 720));
-            
+            Scene scene = new Scene(root, mainStage.getWidth(), mainStage.getHeight());
+            mainStage.setScene(scene);
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+
+    public void setMainMenuController(MainMenuController mainMenuController) {
     }
 }

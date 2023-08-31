@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="720.0" prefWidth="1080.0" style="-fx-background-color: #1C2321;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.farmaciaproject.ModificarProductoController">
+   <children>
+      <ImageView fitHeight="244.0" fitWidth="1088.0" layoutY="479.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../image/wave.png" />
+         </image>
+      </ImageView>
+      <TextField fx:id="productoTextField" alignment="CENTER" focusTraversable="false" layoutX="459.0" layoutY="177.0" prefHeight="26.0" prefWidth="191.0" promptText="Producto" style="-fx-background-color: #535b61;" styleClass="text-field-white-text" stylesheets="@../../../styles/styles.css" />
+      <TextField fx:id="precioTextField" alignment="CENTER" focusTraversable="false" layoutX="462.0" layoutY="264.0" prefHeight="26.0" prefWidth="191.0" promptText="Precio" style="-fx-background-color: #535b61;" styleClass="text-field-white-text" stylesheets="@../../../styles/styles.css" />
+      <TextField fx:id="cantidadTextField" alignment="TOP_CENTER" focusTraversable="false" layoutX="463.0" layoutY="353.0" prefHeight="26.0" prefWidth="191.0" promptText="Cantidad" style="-fx-background-color: #535b61;" styleClass="text-field-white-text" stylesheets="@../../../styles/styles.css" />
+      <DatePicker fx:id="vencimientoDatePicker" focusTraversable="false" layoutX="462.0" layoutY="453.0" prefHeight="26.0" prefWidth="191.0" promptText="Fecha de vencimiento" style="-fx-background-color: #535b61;" styleClass="text-field-white-text" stylesheets="@../../../styles/styles.css" />
+      <JFXButton focusTraversable="false" layoutX="516.0" layoutY="504.0" onAction="#onModificarButtonClick" prefHeight="46.0" prefWidth="85.0" style="-fx-background-color: #15e6cc;" text="Modificar" textFill="#030303">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></JFXButton>
+      <Label layoutX="425.0" layoutY="88.0" text="MODIFICAR PRODUCTO" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="23.0" />
+         </font>
+      </Label>
+      <Label layoutX="511.0" layoutY="135.0" text="Producto" textFill="#15e6cc">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="528.0" layoutY="221.0" text="Precio" textFill="#15e6cc">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="516.0" layoutY="310.0" text="Cantidad" textFill="#15e6cc">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="457.0" layoutY="403.0" text="Fecha de vencimiento" textFill="#15e6cc">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

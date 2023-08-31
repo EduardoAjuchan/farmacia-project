@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
+<?import java.lang.String?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
@@ -14,6 +15,11 @@
 
 <AnchorPane prefHeight="720.0" prefWidth="1080.0" style="-fx-background-color: #1C2321;" styleClass="text-field-white-text" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.farmaciaproject.UserControl">
    <children>
+      <ImageView fitHeight="268.0" fitWidth="1225.0" layoutX="-26.0" layoutY="548.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../image/wave%20(1).png" />
+         </image>
+      </ImageView>
       <Label layoutX="408.0" layoutY="22.0" text="CONTROL DE USUARIOS" textFill="WHITE">
          <font>
             <Font name="System Bold" size="23.0" />
@@ -36,14 +42,19 @@
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <JFXComboBox fx:id="tipoUsuarioComboBox" focusColor="#b57edc" layoutX="123.0" layoutY="146.0" prefHeight="26.0" prefWidth="129.0" unFocusColor="#535b61" />
-      <TableView fx:id="usuariosTableView" layoutX="108.0" layoutY="191.0" prefHeight="469.0" prefWidth="878.0" style="-fx-background-color: #1C2321;" styleClass="text-field-white-text">
+      <JFXComboBox fx:id="tipoUsuarioComboBox" focusColor="#b57edc" focusTraversable="false" layoutX="123.0" layoutY="146.0" prefHeight="26.0" prefWidth="129.0" promptText="Clic aqui" styleClass="list-cell" stylesheets="@../../../styles/styles.css" unFocusColor="#535b61" />
+      <TableView fx:id="usuariosTableView" focusTraversable="false" layoutX="153.0" layoutY="242.0" prefHeight="392.0" prefWidth="788.0" stylesheets="@../../../styles/styles.css">
          <columns>
             <TableColumn fx:id="idColumn" text="ID" />
-            <TableColumn fx:id="usuarioColumn" prefWidth="500.0000305175781" text="Usuario" />
-            <TableColumn fx:id="contrasenaColumn" prefWidth="135.19998168945312" text="Contraseña" />
-            <TableColumn fx:id="tipoUsuarioColumn" prefWidth="159.20001220703125" text="Tipo de Usuario" />
+            <TableColumn fx:id="contrasenaColumn" minWidth="0.0" prefWidth="147.20001220703125" text="Contraseña" />
+            <TableColumn fx:id="usuarioColumn" prefWidth="338.3999328613281" text="Usuario" />
+            <TableColumn fx:id="tipoUsuarioColumn" prefWidth="312.00006103515625" text="Tipo de Usuario" />
          </columns>
+         <styleClass>
+            <String fx:value="column-header" />
+            <String fx:value="table-cell" />
+            <String fx:value="table-row-cell" />
+         </styleClass>
       </TableView>
       <JFXButton contentDisplay="GRAPHIC_ONLY" focusTraversable="false" layoutX="442.0" layoutY="75.0" onAction="#onGuardarButtonClick" prefHeight="54.0" prefWidth="67.0" text="guardar" textFill="WHITE">
          <cursor>

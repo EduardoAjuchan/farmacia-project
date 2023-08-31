@@ -10,41 +10,50 @@ import java.io.IOException;
 
 public class MainMenuController {
     @FXML
-    private Button backButton; // Referencia al botón para regresar a la pantalla anterior
-
+    private Button backButton;
     @FXML
-    private Button ButtonUser; // Referencia al botón "Control de Usuarios"
+    private Button ButtonUser;
+    @FXML
+    private Button ButtonControlProductos;
 
-    private Stage mainStage; // Variable para la ventana principal
+    private Stage mainStage;
 
     public void setMainStage(Stage mainStage) {
         this.mainStage = mainStage;
     }
 
+
     @FXML
-    protected void initialize() {
-        // Método que se llama cuando se carga la pantalla
-        // Puedes realizar inicializaciones aquí si es necesario
+    protected void initialize(Stage mainStage) {
+        this.mainStage = mainStage;
         ButtonUser.setOnAction(event -> {
             onControlUsuariosButtonClick();
         });
+        ButtonControlProductos.setOnAction(event -> {
+            onControlProductosButtonClick();
+        });
     }
 
+
     @FXML
-    protected void onBackButtonClick() {
+    protected void onControlProductosButtonClick() {
         try {
-            FXMLLoader loader = new FXMLLoader(Main.class.getResource("mainmenu.fxml"));
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("producto-control.fxml"));
             Parent root = loader.load();
 
-            MainMenuController mainMenuController = loader.getController();
-            mainMenuController.setMainStage(mainStage);
+            ProductoControl productoControlController = loader.getController();
+            productoControlController.setMainStage(mainStage);
 
-            Scene scene = new Scene(root, mainStage.getWidth(), mainStage.getHeight()); // Ajustar al tamaño de la ventana principal
+            Scene scene = new Scene(root, mainStage.getWidth(), mainStage.getHeight());
             mainStage.setScene(scene);
+
+            productoControlController.initialize(); // Inicializa la tabla de productos nuevamente
+            productoControlController.updateTableView(); // Actualiza la tabla de productos
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 
     @FXML
     protected void onControlUsuariosButtonClick() {

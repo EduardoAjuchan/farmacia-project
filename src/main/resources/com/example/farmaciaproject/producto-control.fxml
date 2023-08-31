@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import java.lang.String?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane style="-fx-background-color: #1C2321;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.farmaciaproject.ProductoControl">
+   <children>
+      <ImageView fitHeight="252.0" fitWidth="1103.0" layoutX="1.0" layoutY="556.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../image/wave.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="390.0" layoutY="14.0" text="CONTROL DE PRODUCTOS" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="50.0" layoutY="90.0" text="Nombre del producto" textFill="#15e6cc">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="50.0" layoutY="134.0" text="Precio unitario" textFill="#15e6cc">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="50.0" layoutY="181.0" text="Cantidad a ingresar" textFill="#15e6cc">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <TextField fx:id="productoTextField" focusTraversable="false" layoutX="240.0" layoutY="88.0" prefHeight="26.0" prefWidth="191.0" promptText="Registra un producto" style="-fx-background-color: #535b61;" styleClass="text-field-white-text" stylesheets="@../../../styles/styles.css" />
+      <TextField fx:id="precioTextField" focusTraversable="false" layoutX="240.0" layoutY="131.0" prefHeight="26.0" prefWidth="191.0" promptText="Indica el precio" style="-fx-background-color: #535b61;" styleClass="text-field-white-text" stylesheets="@../../../styles/styles.css" />
+      <TextField fx:id="cantidadTextField" focusTraversable="false" layoutX="240.0" layoutY="179.0" prefHeight="26.0" prefWidth="191.0" promptText="Agrega la cantidad" style="-fx-background-color: #535b61;" styleClass="text-field-white-text" stylesheets="@../../../styles/styles.css" />
+      <Label layoutX="50.0" layoutY="229.0" text="Fecha de vencimiento" textFill="#15e6cc">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <DatePicker fx:id="vencimientoDatePicker" focusTraversable="false" layoutX="240.0" layoutY="227.0" prefHeight="26.0" prefWidth="191.0" promptText="Fecha de vencimiento" />
+      <TableView fx:id="productosTableView" focusTraversable="false" layoutX="243.0" layoutY="279.0" onMouseClicked="#onProductoSelected" prefHeight="366.0" prefWidth="617.0" stylesheets="@../../../styles/styles.css">
+         <columns>
+            <TableColumn fx:id="idColumn" prefWidth="75.0" text="ID" />
+            <TableColumn fx:id="productoColumn" prefWidth="213.60003662109375" text="Producto" />
+            <TableColumn fx:id="cantidadColumn" prefWidth="93.5999755859375" text="Cantidad" />
+            <TableColumn fx:id="precioColumn" prefWidth="92.79998779296875" text="Precio" />
+            <TableColumn fx:id="vencimientoColumn" prefWidth="146.4000244140625" text="Fecha de Vencimiento" />
+         </columns>
+         <styleClass>
+            <String fx:value="column-header" />
+            <String fx:value="table-cell" />
+            <String fx:value="table-row-cell" />
+         </styleClass>
+      </TableView>
+
+      <JFXButton fx:id="guardarButton" contentDisplay="GRAPHIC_ONLY" focusTraversable="false" layoutX="483.0" layoutY="87.0" text="guardar">
+         <graphic>
+            <ImageView fitHeight="53.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../image/save-icon.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
+      <JFXButton fx:id="modificarButton" contentDisplay="GRAPHIC_ONLY" focusTraversable="false" layoutX="578.0" layoutY="87.0" prefHeight="62.0" prefWidth="62.0" text="modificar">
+         <graphic>
+            <ImageView fitHeight="47.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../image/update-icon.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
+      <JFXButton fx:id="eliminarButton" contentDisplay="GRAPHIC_ONLY" focusTraversable="false" layoutX="668.0" layoutY="90.0" prefHeight="53.0" prefWidth="62.0" text="eliminar">
+         <graphic>
+            <ImageView fitHeight="46.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../image/delete-icon.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
+      <JFXButton fx:id="limpiarButton" focusTraversable="false" layoutX="495.0" layoutY="183.0" style="-fx-background-color: #535b61;" text="Limpiar" textFill="WHITE">
+         <graphic>
+            <ImageView fitHeight="31.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../image/escoba-icon.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
+      <JFXButton contentDisplay="GRAPHIC_ONLY" focusTraversable="false" layoutX="958.0" layoutY="39.0" onAction="#onVolverButtonClick" prefHeight="39.0" prefWidth="31.0" text="volver">
+         <graphic>
+            <ImageView fitHeight="47.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../image/back-icon.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
+   </children>
+</AnchorPane>

@@ -10,3 +10,34 @@
 .text-field-white-text {
     -fx-text-fill: white;
 }
+/* Cambiar el color del texto seleccionado en el JFXComboBox */
+.jfx-combo-box .list-cell:selected {
+    -fx-text-fill: white; /* Cambia este valor al color deseado */
+}
+
+/* Estilo para los encabezados de las columnas */
+.table-view .column-header {
+    -fx-background-color: #535b61;
+    -fx-text-fill: white;
+}
+
+/* Estilo para las filas pares */
+.table-row-cell:even {
+    -fx-background-color: #7a7a7a;
+    -fx-text-fill: white;
+}
+
+/* Estilo para las filas impares */
+.table-row-cell:odd {
+    -fx-background-color: #969696;
+    -fx-text-fill: white;
+}
+
+/* Estilo para las celdas */
+.table-cell {
+    -fx-text-fill: white;
+}
+.table-row-cell:selected {
+    -fx-background-color: #666f88;
+    -fx-text-fill: white;
+}

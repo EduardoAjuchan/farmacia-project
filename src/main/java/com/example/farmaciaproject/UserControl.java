@@ -148,6 +148,7 @@ public class UserControl {
         // Actualiza los datos en la tabla de la interfaz gráfica
         updateTableView();
     }
+
     private boolean showConfirmationDialog(String titulo, String mensaje) {
         Alert alert = new Alert(AlertType.CONFIRMATION);
         alert.setTitle(titulo);
