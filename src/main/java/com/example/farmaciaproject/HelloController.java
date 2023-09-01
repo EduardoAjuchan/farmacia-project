@@ -27,19 +27,18 @@ public class HelloController {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("mainmenu.fxml"));
             Parent root = fxmlLoader.load();
 
-            MainMenuController controller = fxmlLoader.getController();
-            controller.initialize(Main.getMainStage()); // Pasa la referencia de mainStage
+            MainMenuController mainMenuController = fxmlLoader.getController();
+            mainMenuController.setMainStage(mainStage); // Configura el mainStage en el controlador MainMenuController
 
-            controller.setMainStage(mainStage); // Configura el mainStage en el controlador MainMenuController
-
-            Scene scene = new Scene(root, mainStage.getWidth(), mainStage.getHeight());
+            Scene scene = new Scene(root, 1080, 720); // Establece las dimensiones deseadas
             mainStage.setScene(scene);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-
     public void setMainMenuController(MainMenuController mainMenuController) {
     }
 }
+
+

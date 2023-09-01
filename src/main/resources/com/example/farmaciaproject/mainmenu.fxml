@@ -8,14 +8,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="#miAnchorPane" prefHeight="720.0" prefWidth="1080.0" style="-fx-background-color: #1C2321;" stylesheets="@../../../styles/styles.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.farmaciaproject.MainMenuController">
+<AnchorPane id="#miAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1080.0" style="-fx-background-color: #1C2321;" styleClass="root" stylesheets="@../../../styles/styles.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.farmaciaproject.MainMenuController">
    <children>
       <Label layoutX="442.0" layoutY="39.0" text="MENÚ PRINCIPAL" textFill="#f7f4f4" wrapText="true">
          <font>
             <Font name="System Bold" size="23.0" />
          </font>
       </Label>
-      <JFXButton fx:id="ButtonUser"  contentDisplay="GRAPHIC_ONLY" focusTraversable="false" layoutX="813.0" layoutY="120.0" prefHeight="168.0" prefWidth="180.0" ripplerFill="WHITE" style="-fx-background-color: #4ca1f5;" stylesheets="@../../../styles/styles.css" text="Control de Usuarios" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+      <JFXButton fx:id="ButtonUser" contentDisplay="GRAPHIC_ONLY" focusTraversable="false" layoutX="813.0" layoutY="120.0" prefHeight="168.0" prefWidth="180.0" ripplerFill="WHITE" style="-fx-background-color: #b57edc;" stylesheets="@../../../styles/styles.css" text="Control de Usuarios" textAlignment="CENTER" textFill="WHITE" wrapText="true">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
@@ -35,7 +35,7 @@
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <JFXButton fx:id="ButtonControlProductos" contentDisplay="GRAPHIC_ONLY" focusTraversable="false" layoutX="546.0" layoutY="120.0" prefHeight="168.0" prefWidth="180.0" style="-fx-background-color: #dbb6ee;" text="Control de productos" textFill="WHITE">
+      <JFXButton fx:id="ButtonControlProductos" contentDisplay="GRAPHIC_ONLY" focusTraversable="false" layoutX="546.0" layoutY="120.0" prefHeight="168.0" prefWidth="180.0" style="-fx-background-color: #15e6cc;" text="Control de productos" textFill="WHITE">
          <graphic>
             <ImageView fitHeight="162.0" fitWidth="161.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -54,4 +54,3 @@
       </Label>
    </children>
 </AnchorPane>
-

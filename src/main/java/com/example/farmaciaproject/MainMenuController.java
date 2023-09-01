@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
+
 import java.io.IOException;
 
 public class MainMenuController {
@@ -22,10 +23,8 @@ public class MainMenuController {
         this.mainStage = mainStage;
     }
 
-
     @FXML
-    protected void initialize(Stage mainStage) {
-        this.mainStage = mainStage;
+    protected void initialize() {
         ButtonUser.setOnAction(event -> {
             onControlUsuariosButtonClick();
         });
@@ -34,38 +33,34 @@ public class MainMenuController {
         });
     }
 
-
     @FXML
     protected void onControlProductosButtonClick() {
-        try {
-            FXMLLoader loader = new FXMLLoader(Main.class.getResource("producto-control.fxml"));
-            Parent root = loader.load();
-
-            ProductoControl productoControlController = loader.getController();
-            productoControlController.setMainStage(mainStage);
-
-            Scene scene = new Scene(root, mainStage.getWidth(), mainStage.getHeight());
-            mainStage.setScene(scene);
-
-            productoControlController.initialize(); // Inicializa la tabla de productos nuevamente
-            productoControlController.updateTableView(); // Actualiza la tabla de productos
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        loadAndSetScene("producto-control.fxml");
     }
-
 
     @FXML
     protected void onControlUsuariosButtonClick() {
+        loadAndSetScene("user-control.fxml");
+    }
+
+    private void loadAndSetScene(String fxmlFileName) {
         try {
-            FXMLLoader loader = new FXMLLoader(Main.class.getResource("user-control.fxml"));
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource(fxmlFileName));
             Parent root = loader.load();
 
-            // Si necesitas interactuar con el controlador de user-control.fxml
-            // UserController userController = loader.getController();
 
-            Scene scene = new Scene(root, mainStage.getWidth(), mainStage.getHeight());
+            Scene scene = new Scene(root, 1080, 720); // Establece las dimensiones deseadas
             mainStage.setScene(scene);
+
+            if (fxmlFileName.equals("producto-control.fxml")) {
+                ProductoControl productoControlController = loader.getController();
+                productoControlController.setMainStage(mainStage);
+                productoControlController.initialize();
+                productoControlController.updateTableView();
+            } else if (fxmlFileName.equals("user-control.fxml")) {
+                // Si necesitas interactuar con el controlador de user-control.fxml
+                // UserControl userController = loader.getController();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

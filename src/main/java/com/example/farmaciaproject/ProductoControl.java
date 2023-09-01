@@ -364,14 +364,15 @@ public class ProductoControl {
             Parent root = loader.load();
 
             MainMenuController mainMenuController = loader.getController();
-            mainMenuController.initialize(mainStage); // Pasa la referencia de mainStage
+            mainMenuController.setMainStage(mainStage); // Configura el mainStage en el controlador MainMenuController
 
-            Scene scene = new Scene(root, mainStage.getWidth(), mainStage.getHeight());
+            Scene scene = new Scene(root, 1080, 720); // Establece las dimensiones deseadas
             mainStage.setScene(scene);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 
     private boolean showConfirmationDialog(String titulo, String mensaje) {
         Alert alert = new Alert(AlertType.CONFIRMATION);

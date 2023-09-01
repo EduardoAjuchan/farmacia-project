@@ -46,6 +46,6 @@
          <cursor>
             <Cursor fx:constant="OPEN_HAND" />
          </cursor></JFXButton>
-      <TextField fx:id="contrasenaTextField" alignment="CENTER" layoutX="391.0" layoutY="319.0" prefHeight="26.0" prefWidth="295.0" promptText="Contraseña" style="-fx-background-color: #535b61;" styleClass="text-field-white-text" stylesheets="@../../../styles/styles.css" />
+      <TextField fx:id="contrasenaTextField" alignment="CENTER" focusTraversable="false" layoutX="391.0" layoutY="319.0" prefHeight="26.0" prefWidth="295.0" promptText="Contraseña" style="-fx-background-color: #535b61;" styleClass="text-field-white-text" stylesheets="@../../../styles/styles.css" />
    </children>
 </AnchorPane>

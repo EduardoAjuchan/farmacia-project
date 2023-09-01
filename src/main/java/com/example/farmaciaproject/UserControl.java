@@ -1,4 +1,5 @@
 package com.example.farmaciaproject;
+import com.example.farmaciaproject.MainMenuController;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -20,6 +21,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import static com.example.farmaciaproject.Main.mainStage;
 
 public class UserControl {
 
@@ -90,7 +93,7 @@ public class UserControl {
 
                 ModificarUser modificarUserController = loader.getController();
                 modificarUserController.initData(selectedUsuario);
-                modificarUserController.setUserControl(this); // Establece la referencia al controlador UserControl
+                modificarUserController.setUserControl(this);
 
                 Stage stage = new Stage();
                 stage.setTitle("Modificar Usuario");
@@ -98,15 +101,11 @@ public class UserControl {
                 stage.show();
             } catch (IOException e) {
                 e.printStackTrace();
-
             }
         } else {
             showAlert("Selección requerida", "Selecciona un usuario para modificar.");
         }
     }
-
-
-
 
     @FXML
     private void onEliminarButtonClick(ActionEvent event) {
@@ -136,6 +135,23 @@ public class UserControl {
         usuariosTableView.getItems().clear();
         usuariosTableView.getItems().addAll(usuarios);
     }
+
+    @FXML
+    private void onVolverButtonClick(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("mainmenu.fxml"));
+            Parent root = loader.load();
+
+            MainMenuController mainMenuController = loader.getController();
+            mainMenuController.setMainStage(mainStage); // Establece el mainStage en MainMenuController
+
+            Scene scene = new Scene(root, 1080, 720); // Establece las dimensiones deseadas
+            mainStage.setScene(scene);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     private void showAlert(String titulo, String mensaje) {
         Alert alert = new Alert(AlertType.INFORMATION);
