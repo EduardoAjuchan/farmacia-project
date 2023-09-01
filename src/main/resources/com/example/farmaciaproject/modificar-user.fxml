@@ -14,7 +14,7 @@
    <children>
       <ImageView fitHeight="258.0" fitWidth="1151.0" layoutX="-6.0" layoutY="512.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../image/wave%20(1).png" />
+            <Image url="@../../../image/wave (1).png" />
          </image>
       </ImageView>
       <Label layoutX="419.0" layoutY="135.0" text="MODIFICAR USUARIO" textFill="WHITE">
