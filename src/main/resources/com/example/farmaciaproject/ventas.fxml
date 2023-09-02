@@ -62,7 +62,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </JFXButton>
-      <JFXButton layoutX="436.0" layoutY="108.0" prefHeight="38.0" prefWidth="94.0" ripplerFill="WHITE" style="-fx-background-color: #dc143c;" text="Quitar" textFill="WHITE">
+      <JFXButton focusTraversable="false" layoutX="436.0" layoutY="108.0" prefHeight="38.0" prefWidth="94.0" ripplerFill="WHITE" style="-fx-background-color: #dc143c;" text="Quitar" textFill="WHITE">
          <graphic>
             <ImageView fitHeight="38.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -73,6 +73,9 @@
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </JFXButton>
       <JFXButton focusTraversable="false" layoutX="483.0" layoutY="187.0" prefHeight="38.0" prefWidth="93.0" ripplerFill="WHITE" style="-fx-background-color: #ec9e51;" text="Vender" textFill="WHITE">
          <graphic>
@@ -85,6 +88,9 @@
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </JFXButton>
       <Label layoutX="798.0" layoutY="52.0" text="Reporte" textFill="HOTPINK">
          <font>
@@ -102,7 +108,7 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <JFXButton layoutX="798.0" layoutY="130.0" ripplerFill="WHITE" style="-fx-background-color: #5ccda7;" text="Aceptar" textFill="WHITE">
+      <JFXButton focusTraversable="false" layoutX="798.0" layoutY="130.0" ripplerFill="WHITE" style="-fx-background-color: #5ccda7;" text="Aceptar" textFill="WHITE">
          <graphic>
             <ImageView fitHeight="31.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -113,8 +119,11 @@
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </JFXButton>
-      <TableView layoutX="621.0" layoutY="189.0" prefHeight="373.0" prefWidth="422.0" stylesheets="@../../../styles/styles.css">
+      <TableView focusTraversable="false" layoutX="621.0" layoutY="189.0" prefHeight="373.0" prefWidth="422.0" stylesheets="@../../../styles/styles.css">
         <columns>
           <TableColumn prefWidth="46.39996337890625" text="Codigo" />
           <TableColumn prefWidth="115.20001220703125" text="Producto" />
@@ -128,5 +137,17 @@
             <String fx:value="table-row-cell" />
          </styleClass>
       </TableView>
+      <JFXButton fx:id="ButtonVolver" contentDisplay="GRAPHIC_ONLY" focusTraversable="false" layoutX="985.0" layoutY="25.0" prefHeight="39.0" prefWidth="50.0" ripplerFill="WHITE" text="volver">
+         <graphic>
+            <ImageView fitHeight="40.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../image/back-icon.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
    </children>
 </AnchorPane>

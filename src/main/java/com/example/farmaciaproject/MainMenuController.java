@@ -16,6 +16,8 @@ public class MainMenuController {
     private Button ButtonUser;
     @FXML
     private Button ButtonControlProductos;
+    @FXML
+    private Button ButtonVentas;
 
     private Stage mainStage;
 
@@ -31,6 +33,13 @@ public class MainMenuController {
         ButtonControlProductos.setOnAction(event -> {
             onControlProductosButtonClick();
         });
+        ButtonVentas.setOnAction(event -> {
+            onVentasButtonClick();
+        });
+    }
+    @FXML
+    protected void onVentasButtonClick() {
+        loadAndSetScene("ventas.fxml");
     }
 
     @FXML
@@ -48,7 +57,6 @@ public class MainMenuController {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource(fxmlFileName));
             Parent root = loader.load();
 
-
             Scene scene = new Scene(root, 1080, 720); // Establece las dimensiones deseadas
             mainStage.setScene(scene);
 
@@ -60,6 +68,11 @@ public class MainMenuController {
             } else if (fxmlFileName.equals("user-control.fxml")) {
                 // Si necesitas interactuar con el controlador de user-control.fxml
                 // UserControl userController = loader.getController();
+            } else if (fxmlFileName.equals("ventas.fxml")) {
+                Ventas ventasController = loader.getController();
+                ventasController.setMainStage(mainStage);
+                ventasController.initialize();
+                // Realiza otras acciones necesarias en el controlador de Ventas
             }
         } catch (IOException e) {
             e.printStackTrace();
