@@ -11,10 +11,12 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="720.0" prefWidth="1080.0" style="-fx-background-color: #1C2321;" styleClass="text-field-white-text" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.farmaciaproject.UserControl">
    <children>
+      <Rectangle arcHeight="30.0" arcWidth="30.0" fill="#969595" height="75.0" layoutX="319.0" layoutY="109.0" stroke="BLACK" strokeType="INSIDE" width="418.0" />
       <ImageView fitHeight="268.0" fitWidth="1225.0" layoutX="-18.0" layoutY="461.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../image/wave (1).png" />
@@ -56,7 +58,7 @@
             <String fx:value="table-row-cell" />
          </styleClass>
       </TableView>
-      <JFXButton contentDisplay="GRAPHIC_ONLY" focusTraversable="false" layoutX="464.0" layoutY="112.0" onAction="#onGuardarButtonClick" prefHeight="54.0" prefWidth="67.0" text="guardar" textFill="WHITE">
+      <JFXButton contentDisplay="GRAPHIC_ONLY" focusTraversable="false" layoutX="464.0" layoutY="112.0" onAction="#onGuardarButtonClick" prefHeight="54.0" prefWidth="67.0" ripplerFill="WHITE" text="guardar" textFill="WHITE">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
@@ -68,7 +70,7 @@
             </ImageView>
          </graphic>
       </JFXButton>
-      <JFXButton contentDisplay="GRAPHIC_ONLY" focusTraversable="false" layoutX="567.0" layoutY="115.0" onAction="#onModificarButtonClick" text="modificar">
+      <JFXButton contentDisplay="GRAPHIC_ONLY" focusTraversable="false" layoutX="567.0" layoutY="115.0" onAction="#onModificarButtonClick" ripplerFill="WHITE" text="modificar">
          <graphic>
             <ImageView fitHeight="53.0" fitWidth="58.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -80,7 +82,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </JFXButton>
-      <JFXButton contentDisplay="GRAPHIC_ONLY" focusTraversable="false" layoutX="667.0" layoutY="114.0" onAction="#onEliminarButtonClick" prefHeight="62.0" prefWidth="70.0" text="eliminar">
+      <JFXButton contentDisplay="GRAPHIC_ONLY" focusTraversable="false" layoutX="667.0" layoutY="114.0" onAction="#onEliminarButtonClick" prefHeight="62.0" prefWidth="70.0" ripplerFill="WHITE" text="eliminar">
          <graphic>
             <ImageView fitHeight="58.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -95,7 +97,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </JFXButton>
-      <JFXButton focusTraversable="false" layoutX="330.0" layoutY="124.0" onAction="#onLimpiarButtonClick" style="-fx-background-color: #535b61;" text="limpiar" textFill="WHITE">
+      <JFXButton focusTraversable="false" layoutX="330.0" layoutY="124.0" onAction="#onLimpiarButtonClick" ripplerFill="WHITE" style="-fx-background-color: #535b61;" text="limpiar" textFill="WHITE">
          <graphic>
             <ImageView fitHeight="39.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -110,7 +112,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </JFXButton>
-      <JFXButton contentDisplay="GRAPHIC_ONLY" focusTraversable="false" layoutX="957.0" layoutY="45.0" onAction="#onVolverButtonClick" prefHeight="42.0" prefWidth="54.0" text="volver">
+      <JFXButton contentDisplay="GRAPHIC_ONLY" focusTraversable="false" layoutX="957.0" layoutY="45.0" onAction="#onVolverButtonClick" prefHeight="42.0" prefWidth="54.0" ripplerFill="WHITE" text="volver">
          <graphic>
             <ImageView fitHeight="42.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                <image>

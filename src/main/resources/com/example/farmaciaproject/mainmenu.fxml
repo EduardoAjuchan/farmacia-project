@@ -10,12 +10,27 @@
 
 <AnchorPane id="#miAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1080.0" style="-fx-background-color: #1C2321;" styleClass="root" stylesheets="@../../../styles/styles.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.farmaciaproject.MainMenuController">
    <children>
-      <Label layoutX="442.0" layoutY="39.0" text="MENÚ PRINCIPAL" textFill="#f7f4f4" wrapText="true">
+      <ImageView fitHeight="112.0" fitWidth="100.0" layoutX="745.0" layoutY="83.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../image/80a7b811100fbe2bfbe63826880b91ba-removebg-preview.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="243.0" fitWidth="1111.0" layoutY="477.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../image/wave (6).png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="263.0" fitWidth="1095.0" layoutX="-1.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../image/wave (5).png" />
+         </image>
+      </ImageView>
+      <Label layoutX="339.0" layoutY="140.0" text="FARMACIA EL DIFUNTO" textFill="#f7f4f4" wrapText="true">
          <font>
-            <Font name="System Bold" size="23.0" />
+            <Font name="System Bold" size="37.0" />
          </font>
       </Label>
-      <JFXButton fx:id="ButtonUser" contentDisplay="GRAPHIC_ONLY" focusTraversable="false" layoutX="813.0" layoutY="120.0" prefHeight="168.0" prefWidth="180.0" ripplerFill="WHITE" style="-fx-background-color: #b57edc;" stylesheets="@../../../styles/styles.css" text="Control de Usuarios" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+      <JFXButton fx:id="ButtonUser" contentDisplay="GRAPHIC_ONLY" focusTraversable="false" layoutX="761.0" layoutY="243.0" prefHeight="168.0" prefWidth="180.0" ripplerFill="WHITE" style="-fx-background-color: #c501e2;" stylesheets="@../../../styles/styles.css" text="Control de Usuarios" textAlignment="CENTER" textFill="WHITE" wrapText="true">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
@@ -30,12 +45,12 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </JFXButton>
-      <Label focusTraversable="false" layoutX="834.0" layoutY="288.0" text="Control de usuarios" textFill="WHITE">
+      <Label focusTraversable="false" layoutX="768.0" layoutY="420.0" text="Control de usuarios" textFill="WHITE">
          <font>
-            <Font name="System Bold" size="15.0" />
+            <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <JFXButton fx:id="ButtonControlProductos" contentDisplay="GRAPHIC_ONLY" focusTraversable="false" layoutX="546.0" layoutY="120.0" prefHeight="168.0" prefWidth="180.0" style="-fx-background-color: #15e6cc;" text="Control de productos" textFill="WHITE">
+      <JFXButton fx:id="ButtonControlProductos" contentDisplay="GRAPHIC_ONLY" focusTraversable="false" layoutX="457.0" layoutY="243.0" prefHeight="168.0" prefWidth="180.0" ripplerFill="WHITE" style="-fx-background-color: #01c4e7;" text="Control de productos" textFill="WHITE">
          <graphic>
             <ImageView fitHeight="162.0" fitWidth="161.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -47,10 +62,42 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </JFXButton>
-      <Label layoutX="561.0" layoutY="288.0" text="Control de productos" textFill="WHITE">
+      <Label layoutX="457.0" layoutY="420.0" text="Control de productos" textFill="WHITE">
          <font>
-            <Font name="System Bold" size="15.0" />
+            <Font name="System Bold" size="18.0" />
          </font>
       </Label>
+      <JFXButton contentDisplay="GRAPHIC_ONLY" focusTraversable="false" layoutX="159.0" layoutY="242.0" prefHeight="170.0" prefWidth="180.0" ripplerFill="WHITE" style="-fx-background-color: #f82d97;" text="ventas">
+         <graphic>
+            <ImageView fitHeight="108.0" fitWidth="115.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../image/sales-icon.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
+      <Label layoutX="220.0" layoutY="420.0" text="Ventas" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <JFXButton focusTraversable="false" layoutX="890.0" layoutY="61.0" prefHeight="34.0" prefWidth="134.0" style="-fx-background-color: #ff0534;" text="Cerrar sesión" textFill="WHITE">
+         <graphic>
+            <ImageView fitHeight="36.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../image/log-out.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
    </children>
 </AnchorPane>

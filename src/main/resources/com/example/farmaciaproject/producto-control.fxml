@@ -11,16 +11,18 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane style="-fx-background-color: #1C2321;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.farmaciaproject.ProductoControl">
    <children>
+      <Rectangle arcHeight="30.0" arcWidth="30.0" fill="#969595" height="73.0" layoutX="467.0" layoutY="131.0" stroke="BLACK" strokeType="INSIDE" width="333.0" />
       <ImageView fitHeight="252.0" fitWidth="1103.0" layoutY="484.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../image/wave.png" />
          </image>
       </ImageView>
-      <Label layoutX="390.0" layoutY="14.0" text="CONTROL DE PRODUCTOS" textFill="WHITE">
+      <Label layoutX="423.0" layoutY="14.0" text="CONTROL DE PRODUCTOS" textFill="WHITE">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
@@ -64,7 +66,7 @@
          </styleClass>
       </TableView>
 
-      <JFXButton fx:id="guardarButton" contentDisplay="GRAPHIC_ONLY" focusTraversable="false" layoutX="483.0" layoutY="87.0" text="guardar">
+      <JFXButton fx:id="guardarButton" contentDisplay="GRAPHIC_ONLY" focusTraversable="false" layoutX="588.0" layoutY="138.0" ripplerFill="WHITE" text="guardar">
          <graphic>
             <ImageView fitHeight="53.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -76,7 +78,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </JFXButton>
-      <JFXButton fx:id="modificarButton" contentDisplay="GRAPHIC_ONLY" focusTraversable="false" layoutX="578.0" layoutY="87.0" prefHeight="62.0" prefWidth="62.0" text="modificar">
+      <JFXButton fx:id="modificarButton" contentDisplay="GRAPHIC_ONLY" focusTraversable="false" layoutX="658.0" layoutY="137.0" prefHeight="62.0" prefWidth="62.0" ripplerFill="WHITE" text="modificar">
          <graphic>
             <ImageView fitHeight="47.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -88,7 +90,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </JFXButton>
-      <JFXButton fx:id="eliminarButton" contentDisplay="GRAPHIC_ONLY" focusTraversable="false" layoutX="668.0" layoutY="90.0" prefHeight="53.0" prefWidth="62.0" text="eliminar">
+      <JFXButton fx:id="eliminarButton" contentDisplay="GRAPHIC_ONLY" focusTraversable="false" layoutX="733.0" layoutY="141.0" prefHeight="53.0" prefWidth="62.0" ripplerFill="WHITE" text="eliminar">
          <graphic>
             <ImageView fitHeight="46.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -100,7 +102,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </JFXButton>
-      <JFXButton fx:id="limpiarButton" focusTraversable="false" layoutX="495.0" layoutY="183.0" style="-fx-background-color: #535b61;" text="Limpiar" textFill="WHITE">
+      <JFXButton fx:id="limpiarButton" focusTraversable="false" layoutX="483.0" layoutY="149.0" ripplerFill="WHITE" style="-fx-background-color: #535b61;" text="Limpiar" textFill="WHITE">
          <graphic>
             <ImageView fitHeight="31.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -111,8 +113,11 @@
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
       </JFXButton>
-      <JFXButton contentDisplay="GRAPHIC_ONLY" focusTraversable="false" layoutX="986.0" layoutY="39.0" onAction="#onVolverButtonClick" prefHeight="39.0" prefWidth="31.0" text="volver">
+      <JFXButton contentDisplay="GRAPHIC_ONLY" focusTraversable="false" layoutX="986.0" layoutY="39.0" onAction="#onVolverButtonClick" prefHeight="39.0" prefWidth="31.0" ripplerFill="WHITE" text="volver">
          <graphic>
             <ImageView fitHeight="47.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
                <image>
