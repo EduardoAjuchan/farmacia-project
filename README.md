@@ -39,10 +39,10 @@ Este repositorio contiene el proyecto de un Sistema POS (Punto de Venta) diseña
 
 Para este proyecto, se utilizaron las siguientes tecnologías:
 
-- [JavaFX](https://openjfx.io/): Plataforma para el desarrollo de aplicaciones de interfaz gráfica en Java.
-- [JFoenix](https://github.com/sshahine/JFoenix): Librería de diseño de material para JavaFX.
-- [Scene Builder](https://gluonhq.com/products/scene-builder/): Herramienta visual para diseñar interfaces gráficas de usuario.
-- [MySQL Connector](https://dev.mysql.com/downloads/connector/j/): Conector para trabajar con la base de datos MySQL.
+- **[JavaFX]** Plataforma para el desarrollo de aplicaciones de interfaz gráfica en Java.
+- **[JFoenix]** Librería de diseño de material para JavaFX.
+- **[Scene Builder]** Herramienta visual para diseñar interfaces gráficas de usuario.
+- **[MySQL Connector]** Conector para trabajar con la base de datos MySQL.
 
 ## Enlaces Relevantes
 
