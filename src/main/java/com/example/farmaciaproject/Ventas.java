@@ -43,7 +43,7 @@ public class Ventas {
                 MainMenuController mainMenuController = loader.getController();
                 mainMenuController.setMainStage(mainStage);
                 mainMenuController.initialize();
-                // Otras acciones que desees realizar en el controlador de MainMenu
+
             }
         } catch (IOException e) {
             e.printStackTrace();

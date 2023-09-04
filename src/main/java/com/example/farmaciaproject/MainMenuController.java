@@ -66,13 +66,12 @@ public class MainMenuController {
                 productoControlController.initialize();
                 productoControlController.updateTableView();
             } else if (fxmlFileName.equals("user-control.fxml")) {
-                // Si necesitas interactuar con el controlador de user-control.fxml
-                // UserControl userController = loader.getController();
+
             } else if (fxmlFileName.equals("ventas.fxml")) {
                 Ventas ventasController = loader.getController();
                 ventasController.setMainStage(mainStage);
                 ventasController.initialize();
-                // Realiza otras acciones necesarias en el controlador de Ventas
+
             }
         } catch (IOException e) {
             e.printStackTrace();

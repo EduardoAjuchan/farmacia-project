@@ -26,10 +26,10 @@ public class Main extends Application {
         mainMenuController.setMainStage(stage);
 
 
-        // Configura el controlador para que pueda cambiar la escena
+        // Se configura el controlador para que pueda cambiar la escena
         controller.setMainMenuController(mainMenuController);
 
-        // Deshabilita el botón de maximizar
+        // Se deshabilita el botón de maximizar
         stage.setResizable(false);
 
         Scene scene = new Scene(root, 1080, 720);

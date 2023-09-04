@@ -29,7 +29,7 @@ public class ModificarProductoController {
     private DatePicker vencimientoDatePicker;
 
     private Stage modificarStage;
-    private Producto producto; // Utiliza esta referencia al producto seleccionado
+    private Producto producto;
 
     public void initData(Producto producto) {
         this.producto = producto;
@@ -45,7 +45,7 @@ public class ModificarProductoController {
         String nuevoPrecioStr = precioTextField.getText();
         String nuevaCantidadStr = cantidadTextField.getText();
         LocalDate nuevaFechaVencimiento = vencimientoDatePicker.getValue();
-        // Verificar si algún campo ha cambiado
+        // Se verifica si algún campo ha cambiado
         if (sonCamposIguales(nuevoProducto, nuevoPrecioStr, nuevaCantidadStr, nuevaFechaVencimiento)) {
             showAlert("Sin cambios", "Debes hacer algún cambio antes de modificar el producto.");
             return;
@@ -55,7 +55,7 @@ public class ModificarProductoController {
             double nuevoPrecio = Double.parseDouble(nuevoPrecioStr);
             int nuevaCantidad = Integer.parseInt(nuevaCantidadStr);
 
-            // Aquí realizamos la lógica para guardar los cambios en la base de datos
+            // Guardar en la bd
             String url = "jdbc:mysql://localhost:3306/bdnegocio";
             String username = "root";
             String password = "123456";

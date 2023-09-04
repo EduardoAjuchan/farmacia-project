@@ -28,9 +28,9 @@ public class HelloController {
             Parent root = fxmlLoader.load();
 
             MainMenuController mainMenuController = fxmlLoader.getController();
-            mainMenuController.setMainStage(mainStage); // Configura el mainStage en el controlador MainMenuController
+            mainMenuController.setMainStage(mainStage); // mainStage en el controlador MainMenuController
 
-            Scene scene = new Scene(root, 1080, 720); // Establece las dimensiones deseadas
+            Scene scene = new Scene(root, 1080, 720); // Se stablece las dimensiones deseadas
             mainStage.setScene(scene);
         } catch (IOException e) {
             e.printStackTrace();
