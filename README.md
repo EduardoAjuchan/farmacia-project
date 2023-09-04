@@ -9,20 +9,21 @@
 
 Este repositorio contiene el proyecto de un Sistema POS (Punto de Venta) diseñado para la farmacia "Farmacia El Difunto". El sistema aborda el control de ventas e inventario, incorporando un sistema de manejo de usuarios con roles definidos (Empleado y Administrador) que poseen distintos niveles de acceso al sistema. El sistema permite gestionar el inventario, incluyendo operaciones para añadir, modificar y borrar productos. Además, ofrece la capacidad de realizar ventas y generar informes detallados de las transacciones realizadas.
 
-**¡IMPORTANTE!** El sistema se encuentra en proceso de desarrollo. El módulo de control de usuarios está funcional, mientras que los demás módulos se estarán agregando progresivamente en los próximos días.
+**¡IMPORTANTE!** El sistema se encuentra en proceso de desarrollo. Los módulos, "Control de Usuarios" y "Control de Ventas" ya son funcionales, el módulo de "Ventas" (Se incluyen reportes) será agregando en los días próximos.
 
 ## Capturas de Pantalla
 
 <div style="display: align = "center";">
   <img src="https://i.imgur.com/XikRebD.png" alt="Login" width="500"/>
-  <img src="https://i.imgur.com/60EgZzD.png" alt="Menú Principal" width="500"/>
-  <img src="https://i.imgur.com/cTjoQGE.png" alt="Menú Control de Usuarios" width="500"/>
-  <img src="https://i.imgur.com/pGp3A1M.png" alt="Panel de Modificación de Usuarios" width="500"/>
-</div>
-
-<div style="display: flex;">
+  <img src="https://i.imgur.com/DQzliAI.png" alt="Menú Principal" width="500"/>
+  <img src="https://i.imgur.com/fpgtXmB.png" alt="Menú Control de Usuarios" width="500"/>
+  <img src="https://i.imgur.com/kXndppM.png" alt="Panel de Modificación de Usuarios" width="500"/>
+  <img src="https://i.imgur.com/9xpIFQN.png" alt="Menú Control de Productos" width="500"/>
+  <img src="https://i.imgur.com/6Q5oNIe.png" alt="Panel de Modificacion de Productos" width="500"/>
+  <img src="https://i.imgur.com/kTdZ51C.png" alt="Menu de ventas y reportes" width="500"/> 
   <img src="https://i.imgur.com/lyaV43u.png" alt="Usuarios en Base de Datos" width="500"/>
 </div>
+
 
 ## Tecnologías Utilizadas
 
