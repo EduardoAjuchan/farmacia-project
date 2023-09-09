@@ -5,7 +5,6 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 
 import com.jfoenix.controls.JFXButton;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -138,7 +137,7 @@ public class Ventas {
         String contraseña = "123456";
 
         try (Connection conn = DriverManager.getConnection(url, usuario, contraseña)) {
-            String selectProductoSQL = "SELECT nombreProducto, precioUnitario FROM producto WHERE codigoProducto = ?";
+            String selectProductoSQL = "SELECT nombreProducto, precioUnitario, codigoProducto FROM producto WHERE codigoProducto = ?";
             PreparedStatement pstmtProducto = conn.prepareStatement(selectProductoSQL);
             pstmtProducto.setString(1, codigoProducto);
 
@@ -146,7 +145,8 @@ public class Ventas {
             if (rsProducto.next()) {
                 String nombreProducto = rsProducto.getString("nombreProducto");
                 double precio = rsProducto.getDouble("precioUnitario");
-                return new Producto(nombreProducto, 0, precio, 0.0);
+                int codigo = rsProducto.getInt("codigoProducto");
+                return new Producto(nombreProducto, 0, precio, 0.0, codigo);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -154,7 +154,6 @@ public class Ventas {
 
         return null; // Retorna null si el producto no se encontró en la base de datos
     }
-
 
     private void mostrarMensajeError(String s) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -170,6 +169,13 @@ public class Ventas {
         // Ejemplo de cómo mostrar el mensaje de éxito:
         guardarVentaEnBaseDeDatos();
         mostrarMensajeExito("Venta realizada con éxito");
+
+        // Limpiar campos después de la venta
+        codigoTextField.clear();
+        cantidadTextField.clear();
+        clienteTextField.clear();
+        tableView.getItems().clear();
+        totalLabel.setText("Total: Q0.00");
     }
 
     private void actualizarTotalVenta() {
@@ -220,11 +226,18 @@ public class Ventas {
                 String insertDetalleVentaSQL = "INSERT INTO DetallesVenta (codigoVenta, codigoProducto, cantidadVendida, totalProducto) VALUES (?, ?, ?, ?)";
                 PreparedStatement pstmtDetalleVenta = conn.prepareStatement(insertDetalleVentaSQL);
                 pstmtDetalleVenta.setInt(1, codigoVentaGenerado);
-                pstmtDetalleVenta.setInt(2, obtenerCodigoProductoDesdeBD(producto.getNombre())); // Obtener el código de producto desde la base de datos
+                pstmtDetalleVenta.setInt(2, producto.getCodigo()); // Obtener el código de producto desde el objeto Producto
                 pstmtDetalleVenta.setInt(3, producto.getCantidad());
                 pstmtDetalleVenta.setDouble(4, producto.getSubtotal());
 
                 pstmtDetalleVenta.executeUpdate();
+
+                // Actualizar existencias en la tabla producto
+                String updateExistenciasSQL = "UPDATE producto SET cantidadProducto = cantidadProducto - ? WHERE codigoProducto = ?";
+                PreparedStatement pstmtExistencias = conn.prepareStatement(updateExistenciasSQL);
+                pstmtExistencias.setInt(1, producto.getCantidad());
+                pstmtExistencias.setInt(2, producto.getCodigo());
+                pstmtExistencias.executeUpdate();
             }
 
             conn.close();
@@ -233,39 +246,19 @@ public class Ventas {
         }
     }
 
-    private int obtenerCodigoProductoDesdeBD(String nombreProducto) throws SQLException {
-        String url = "jdbc:mysql://localhost:3306/bdnegocio";
-        String usuario = "root";
-        String contraseña = "123456";
-
-        Connection conn = DriverManager.getConnection(url, usuario, contraseña);
-
-        String selectProductoSQL = "SELECT codigoProducto FROM producto WHERE nombreProducto = ?";
-        PreparedStatement pstmtProducto = conn.prepareStatement(selectProductoSQL);
-        pstmtProducto.setString(1, nombreProducto);
-
-        ResultSet rsProducto = pstmtProducto.executeQuery();
-        int codigoProducto = -1;
-        if (rsProducto.next()) {
-            codigoProducto = rsProducto.getInt("codigoProducto");
-        }
-
-        conn.close();
-
-        return codigoProducto;
-    }
-
     public static class Producto {
         private final SimpleStringProperty nombre;
         private final SimpleIntegerProperty cantidad;
         private final SimpleDoubleProperty precio;
         private final SimpleDoubleProperty subtotal;
+        private final int codigo; // Código del producto
 
-        public Producto(String nombre, int cantidad, double precio, double subtotal) {
+        public Producto(String nombre, int cantidad, double precio, double subtotal, int codigo) {
             this.nombre = new SimpleStringProperty(nombre);
             this.cantidad = new SimpleIntegerProperty(cantidad);
             this.precio = new SimpleDoubleProperty(precio);
             this.subtotal = new SimpleDoubleProperty(subtotal);
+            this.codigo = codigo;
         }
 
         public String getNombre() {
@@ -282,6 +275,10 @@ public class Ventas {
 
         public Double getSubtotal() {
             return subtotal.get();
+        }
+
+        public int getCodigo() {
+            return codigo;
         }
 
         public SimpleStringProperty nombreProperty() {
@@ -310,5 +307,6 @@ public class Ventas {
         }
     }
 }
+
 
 
