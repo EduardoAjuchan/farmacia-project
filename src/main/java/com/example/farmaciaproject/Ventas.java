@@ -131,7 +131,6 @@ public class Ventas {
 
     private Producto obtenerProductoDesdeBD(String codigoProducto) {
         // Realiza una consulta a la base de datos para obtener la información del producto
-        // Debes reemplazar los siguientes valores con la configuración de tu base de datos
         String url = "jdbc:mysql://localhost:3306/bdnegocio";
         String usuario = "root";
         String contraseña = "123456";
@@ -164,9 +163,6 @@ public class Ventas {
     }
 
     private void vender() {
-        // Aquí debes agregar la lógica para guardar la venta en la base de datos (Tabla Ventas y DetallesVenta)
-        // y mostrar el mensaje "Venta realizada con éxito".
-        // Ejemplo de cómo mostrar el mensaje de éxito:
         guardarVentaEnBaseDeDatos();
         mostrarMensajeExito("Venta realizada con éxito");
 
@@ -223,12 +219,13 @@ public class Ventas {
 
             // Insertar detalles de venta en DetallesVenta
             for (Producto producto : tableView.getItems()) {
-                String insertDetalleVentaSQL = "INSERT INTO DetallesVenta (codigoVenta, codigoProducto, cantidadVendida, totalProducto) VALUES (?, ?, ?, ?)";
+                String insertDetalleVentaSQL = "INSERT INTO DetallesVenta (codigoVenta, codigoProducto, cantidadVendida, totalProducto, nombreProducto) VALUES (?, ?, ?, ?, ?)";
                 PreparedStatement pstmtDetalleVenta = conn.prepareStatement(insertDetalleVentaSQL);
                 pstmtDetalleVenta.setInt(1, codigoVentaGenerado);
                 pstmtDetalleVenta.setInt(2, producto.getCodigo()); // Obtener el código de producto desde el objeto Producto
                 pstmtDetalleVenta.setInt(3, producto.getCantidad());
                 pstmtDetalleVenta.setDouble(4, producto.getSubtotal());
+                pstmtDetalleVenta.setString(5, producto.getNombre()); // Agregar el nombre del producto
 
                 pstmtDetalleVenta.executeUpdate();
 
@@ -307,6 +304,5 @@ public class Ventas {
         }
     }
 }
-
 
 
