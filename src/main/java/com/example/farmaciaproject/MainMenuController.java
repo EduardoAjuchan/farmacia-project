@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -19,7 +20,12 @@ public class MainMenuController {
     @FXML
     private Button ButtonVentas;
 
+    @FXML
+    private Label bienvenidoLabel;
+    @FXML
+    private Button logoutButton;
     private Stage mainStage;
+    private static boolean isControlUsuariosEnabled = true; // Controla el estado habilitado del botón "Control de Usuarios"
 
     public void setMainStage(Stage mainStage) {
         this.mainStage = mainStage;
@@ -36,7 +42,29 @@ public class MainMenuController {
         ButtonVentas.setOnAction(event -> {
             onVentasButtonClick();
         });
+        logoutButton.setOnAction(event -> {
+            onLogoutButtonClick();
+        });
+
+        // Actualiza el texto del Label con el nombre de usuario
+        Session session = Session.getInstance();
+        String username = session.getUser();
+        bienvenidoLabel.setText("¡Bienvenido, " + username + "!");
+
+        // Verifica el tipo de usuario y deshabilita el botón "Control de Usuarios" si es "Empleado"
+        String userType = session.getUserType();
+        if ("Empleado".equalsIgnoreCase(userType)) {
+            isControlUsuariosEnabled = false; // Deshabilitar el botón "Control de Usuarios"
+        }
+
+        // Si el botón "Control de Usuarios" debe estar deshabilitado, lo deshabilitamos
+        ButtonUser.setDisable(!isControlUsuariosEnabled);
     }
+
+    public static void disableControlDeUsuarios() {
+        isControlUsuariosEnabled = false;
+    }
+
     @FXML
     protected void onVentasButtonClick() {
         loadAndSetScene("ventas.fxml");
@@ -52,9 +80,20 @@ public class MainMenuController {
         loadAndSetScene("user-control.fxml");
     }
 
+    @FXML
+    private void onLogoutButtonClick() {
+        // Elimina los datos de sesión
+        Session.getInstance().clearSession();
+
+        // Cierra la aplicación
+        Stage stage = (Stage) logoutButton.getScene().getWindow();
+        stage.close();
+    }
+
+
     private void loadAndSetScene(String fxmlFileName) {
         try {
-            FXMLLoader loader = new FXMLLoader(Main.class.getResource(fxmlFileName));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileName));
             Parent root = loader.load();
 
             Scene scene = new Scene(root, 1080, 720); // Establece las dimensiones deseadas
@@ -71,11 +110,9 @@ public class MainMenuController {
                 Ventas ventasController = loader.getController();
                 ventasController.setMainStage(mainStage);
                 ventasController.initialize();
-
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 }
-

@@ -56,7 +56,7 @@
       <VBox.margin>
          <Insets left="600.0" />
       </VBox.margin></Label>
-   <TextField alignment="CENTER" focusTraversable="false" prefHeight="6.0" prefWidth="502.0" promptText="Escribe tu usuario" style="-fx-background-color: #535b61;" styleClass="text-field-white-text" stylesheets="@../../../styles/styles.css">
+   <TextField fx:id="textFieldUsername" alignment="CENTER" focusTraversable="false" prefHeight="6.0" prefWidth="502.0" promptText="Escribe tu usuario" style="-fx-background-color: #535b61;" styleClass="text-field-white-text" stylesheets="@../../../styles/styles.css">
       <VBox.margin>
          <Insets left="700.0" right="100.0" top="5.0" />
       </VBox.margin>
@@ -73,7 +73,7 @@
       <VBox.margin>
          <Insets left="600.0" />
       </VBox.margin></Label>
-   <PasswordField alignment="CENTER" focusTraversable="false" prefHeight="26.0" prefWidth="682.0" promptText="Escribe tu contraseña" style="-fx-background-color: #535b61;" styleClass="text-field-white-text" stylesheets="@../../../styles/styles.css">
+   <PasswordField fx:id="passwordField" alignment="CENTER" focusTraversable="false" prefHeight="26.0" prefWidth="682.0" promptText="Escribe tu contraseña" style="-fx-background-color: #535b61;" styleClass="text-field-white-text" stylesheets="@../../../styles/styles.css">
       <VBox.margin>
          <Insets left="700.0" right="100.0" top="5.0" />
       </VBox.margin>

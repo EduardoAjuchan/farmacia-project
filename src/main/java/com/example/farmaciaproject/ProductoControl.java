@@ -7,14 +7,12 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -26,6 +24,8 @@ import java.util.Optional;
 
 public class ProductoControl {
     private Stage mainStage;
+    private boolean isControlUsuariosEnabled = true;
+
     @FXML
     private TextField productoTextField;
 
@@ -67,6 +67,8 @@ public class ProductoControl {
 
     @FXML
     private JFXButton limpiarButton;
+    @FXML
+    private Label bienvenidoLabel;
 
     private ObservableList<Producto> productosList = FXCollections.observableArrayList();
 
@@ -104,8 +106,17 @@ public class ProductoControl {
         modificarButton.setOnAction(this::onModificarButtonClick);
         eliminarButton.setOnAction(this::onEliminarButtonClick);
         limpiarButton.setOnAction(this::onLimpiarButtonClick);
+
+        // Obtén el nombre de usuario desde la sesión (ajusta esto según cómo lo obtienes)
+        Session session = Session.getInstance();
+        String username = session.getUser(); // Ajusta esto según el método que tengas en Session
+
+        // Configura el texto del Label para mostrar el nombre de usuario
+        bienvenidoLabel.setText("¡Bienvenido, " + username + "!");
+
         updateTableView();
     }
+
 
     @FXML
     private void onGuardarButtonClick(ActionEvent event) {
@@ -157,7 +168,6 @@ public class ProductoControl {
             e.printStackTrace();
         }
     }
-
 
     @FXML
     private void onEliminarButtonClick(ActionEvent event) {
@@ -244,7 +254,6 @@ public class ProductoControl {
         }
     }
 
-
     private void deleteProducto(int productoId) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -287,7 +296,6 @@ public class ProductoControl {
             }
         }
     }
-
 
     private List<Producto> getAllProductos() {
         List<Producto> productos = new ArrayList<>();
@@ -349,7 +357,6 @@ public class ProductoControl {
         return productos;
     }
 
-
     private void showAlert(String titulo, String mensaje) {
         Alert alert = new Alert(AlertType.INFORMATION);
         alert.setTitle(titulo);
@@ -357,6 +364,7 @@ public class ProductoControl {
         alert.setContentText(mensaje);
         alert.showAndWait();
     }
+
     @FXML
     private void onVolverButtonClick(ActionEvent event) {
         try {
@@ -373,7 +381,6 @@ public class ProductoControl {
         }
     }
 
-
     private boolean showConfirmationDialog(String titulo, String mensaje) {
         Alert alert = new Alert(AlertType.CONFIRMATION);
         alert.setTitle(titulo);
@@ -388,4 +395,5 @@ public class ProductoControl {
         this.mainStage = mainStage;
     }
 }
+
 

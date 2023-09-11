@@ -15,6 +15,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.*;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Ventas {
     @FXML
@@ -43,9 +45,14 @@ public class Ventas {
     private JFXButton quitarButton;
     @FXML
     private JFXButton venderButton;
+    @FXML
+    private Label bienvenidoLabel;
 
     private Stage mainStage;
     private double totalVenta = 0.0;
+
+    // Lista para mantener un registro de los productos vendidos
+    private List<Producto> productosVendidos = new ArrayList<>();
 
     public Ventas() {
     }
@@ -88,6 +95,11 @@ public class Ventas {
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             quitarButton.setDisable(newValue == null);
         });
+
+        // Actualiza el texto del Label con el nombre de usuario
+        Session session = Session.getInstance();
+        String username = session.getUser();
+        bienvenidoLabel.setText("¡Bienvenido, " + username + "!");
     }
 
     @FXML
@@ -123,6 +135,7 @@ public class Ventas {
 
             Producto nuevoProducto = new Producto(producto.getNombre(), cantidad, producto.getPrecio(), subtotal, producto.getCodigo());
 
+            productosVendidos.add(nuevoProducto); // Agregar a la lista de productos vendidos
             tableView.getItems().add(nuevoProducto);
 
             actualizarTotalVenta();
@@ -166,12 +179,14 @@ public class Ventas {
     }
 
     private void vender() {
-        // Verificar si se han ingresado al menos un producto, un código y un cliente
-        if (tableView.getItems().isEmpty() || codigoTextField.getText().isEmpty() || clienteTextField.getText().isEmpty()) {
-            mostrarMensajeError("Debe ingresar al menos un producto, un código y un cliente.");
-            return; // Salir de la función si no se cumplen los requisitos
+        // Verificar si se han ingresado al menos un producto en el TableView
+        if (tableView.getItems().isEmpty()) {
+            mostrarMensajeError("Debe ingresar al menos un producto.");
+            return; // Salir de la función si no hay productos en el TableView
         }
-        guardarVentaEnBaseDeDatos();
+
+        String nombreCliente = clienteTextField.getText().isEmpty() ? "CF" : clienteTextField.getText();
+        guardarVentaEnBaseDeDatos(nombreCliente);
         mostrarMensajeExito("Venta realizada con éxito");
 
         codigoTextField.clear();
@@ -180,6 +195,7 @@ public class Ventas {
         tableView.getItems().clear();
         totalLabel.setText("Total: Q0.00");
     }
+
 
     private void actualizarTotalVenta() {
         double total = 0.0;
@@ -199,7 +215,7 @@ public class Ventas {
         alert.showAndWait();
     }
 
-    private void guardarVentaEnBaseDeDatos() {
+    private void guardarVentaEnBaseDeDatos(String nombreCliente) {
         try {
             String url = "jdbc:mysql://localhost:3306/bdnegocio";
             String usuario = "root";
@@ -210,7 +226,7 @@ public class Ventas {
             String insertVentaSQL = "INSERT INTO Ventas (fechaVenta, nombreCliente, totalVenta) VALUES (?, ?, ?)";
             PreparedStatement pstmtVenta = conn.prepareStatement(insertVentaSQL, PreparedStatement.RETURN_GENERATED_KEYS);
             pstmtVenta.setDate(1, java.sql.Date.valueOf(java.time.LocalDate.now()));
-            pstmtVenta.setString(2, clienteTextField.getText());
+            pstmtVenta.setString(2, nombreCliente);
             pstmtVenta.setDouble(3, totalVenta);
 
             pstmtVenta.executeUpdate();
@@ -221,7 +237,7 @@ public class Ventas {
                 codigoVentaGenerado = rsVenta.getInt(1);
             }
 
-            for (Producto producto : tableView.getItems()) {
+            for (Producto producto : productosVendidos) {
                 String insertDetalleVentaSQL = "INSERT INTO DetallesVenta (codigoVenta, codigoProducto, cantidadVendida, totalProducto, nombreProducto) VALUES (?, ?, ?, ?, ?)";
                 PreparedStatement pstmtDetalleVenta = conn.prepareStatement(insertDetalleVentaSQL);
                 pstmtDetalleVenta.setInt(1, codigoVentaGenerado);
@@ -245,11 +261,13 @@ public class Ventas {
         }
     }
 
+
     private void quitarProductoSeleccionado() {
         Producto productoSeleccionado = tableView.getSelectionModel().getSelectedItem();
 
         if (productoSeleccionado != null) {
             tableView.getItems().remove(productoSeleccionado);
+            productosVendidos.remove(productoSeleccionado); // Quitar de la lista de productos vendidos
             actualizarTotalVenta();
         } else {
             mostrarMensajeError("Selecciona un producto para quitar.");
@@ -316,6 +334,7 @@ public class Ventas {
         }
     }
 }
+
 
 
 

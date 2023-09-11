@@ -12,6 +12,7 @@ public class Main extends Application {
     public static Stage getMainStage() {
         return mainStage;
     }
+
     @Override
     public void start(Stage stage) throws IOException {
         mainStage = stage;
@@ -20,14 +21,11 @@ public class Main extends Application {
         HelloController controller = fxmlLoader.getController();
         controller.setMainStage(stage);
 
+        // Cargar MainMenuController sin la necesidad de setMainMenuController
         FXMLLoader mainMenuLoader = new FXMLLoader(Main.class.getResource("mainmenu.fxml"));
         Parent mainMenuRoot = mainMenuLoader.load();
         MainMenuController mainMenuController = mainMenuLoader.getController();
         mainMenuController.setMainStage(stage);
-
-
-        // Se configura el controlador para que pueda cambiar la escena
-        controller.setMainMenuController(mainMenuController);
 
         // Se deshabilita el botón de maximizar
         stage.setResizable(false);
