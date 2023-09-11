@@ -27,7 +27,6 @@ public class Ventas {
     private TextField clienteTextField;
     @FXML
     private TableView<Producto> tableView;
-
     @FXML
     private TableColumn<Producto, String> productoColumn;
     @FXML
@@ -40,6 +39,8 @@ public class Ventas {
     private Label totalLabel;
     @FXML
     private JFXButton agregarButton;
+    @FXML
+    private JFXButton quitarButton;
     @FXML
     private JFXButton venderButton;
 
@@ -74,8 +75,18 @@ public class Ventas {
             agregarProducto();
         });
 
+        quitarButton.setOnAction(event -> {
+            quitarProductoSeleccionado();
+        });
+
         venderButton.setOnAction(event -> {
             vender();
+        });
+
+        quitarButton.setDisable(true);
+
+        tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            quitarButton.setDisable(newValue == null);
         });
     }
 
@@ -103,34 +114,26 @@ public class Ventas {
     }
 
     private void agregarProducto() {
-        // Obtén el código ingresado en el TextField "Codigo"
         String codigoProducto = codigoTextField.getText();
-
-        // Realiza una consulta a la base de datos para obtener la información del producto
         Producto producto = obtenerProductoDesdeBD(codigoProducto);
 
-        // Verifica si se encontró el producto en la base de datos
         if (producto != null) {
-            int cantidad = Integer.parseInt(cantidadTextField.getText()); // Cantidad ingresada
-            double subtotal = cantidad * producto.getPrecio(); // Calcula el subtotal
+            int cantidad = Integer.parseInt(cantidadTextField.getText());
+            double subtotal = cantidad * producto.getPrecio();
 
-            // Actualiza la cantidad y el subtotal del producto
-            producto.setCantidad(cantidad);
-            producto.setSubtotal(subtotal);
+            Producto nuevoProducto = new Producto(producto.getNombre(), cantidad, producto.getPrecio(), subtotal, producto.getCodigo());
 
-            // Agrega el producto a la tabla
-            tableView.getItems().add(producto);
+            tableView.getItems().add(nuevoProducto);
 
-            // Actualiza el total de la venta
             actualizarTotalVenta();
+            codigoTextField.clear();
+            cantidadTextField.clear();
         } else {
-            // Muestra un mensaje de error si el producto no se encontró en la base de datos
             mostrarMensajeError("Producto no encontrado en la base de datos.");
         }
     }
 
     private Producto obtenerProductoDesdeBD(String codigoProducto) {
-        // Realiza una consulta a la base de datos para obtener la información del producto
         String url = "jdbc:mysql://localhost:3306/bdnegocio";
         String usuario = "root";
         String contraseña = "123456";
@@ -151,7 +154,7 @@ public class Ventas {
             e.printStackTrace();
         }
 
-        return null; // Retorna null si el producto no se encontró en la base de datos
+        return null;
     }
 
     private void mostrarMensajeError(String s) {
@@ -163,10 +166,14 @@ public class Ventas {
     }
 
     private void vender() {
+        // Verificar si se han ingresado al menos un producto, un código y un cliente
+        if (tableView.getItems().isEmpty() || codigoTextField.getText().isEmpty() || clienteTextField.getText().isEmpty()) {
+            mostrarMensajeError("Debe ingresar al menos un producto, un código y un cliente.");
+            return; // Salir de la función si no se cumplen los requisitos
+        }
         guardarVentaEnBaseDeDatos();
         mostrarMensajeExito("Venta realizada con éxito");
 
-        // Limpiar campos después de la venta
         codigoTextField.clear();
         cantidadTextField.clear();
         clienteTextField.clear();
@@ -175,7 +182,6 @@ public class Ventas {
     }
 
     private void actualizarTotalVenta() {
-        // Calcular el total de la venta sumando los subtotales de los productos en la tabla
         double total = 0.0;
         for (Producto producto : tableView.getItems()) {
             total += producto.getSubtotal();
@@ -201,35 +207,31 @@ public class Ventas {
 
             Connection conn = DriverManager.getConnection(url, usuario, contraseña);
 
-            // Obtener el código de venta generado automáticamente
             String insertVentaSQL = "INSERT INTO Ventas (fechaVenta, nombreCliente, totalVenta) VALUES (?, ?, ?)";
             PreparedStatement pstmtVenta = conn.prepareStatement(insertVentaSQL, PreparedStatement.RETURN_GENERATED_KEYS);
-            pstmtVenta.setDate(1, java.sql.Date.valueOf(java.time.LocalDate.now())); // Fecha actual
-            pstmtVenta.setString(2, clienteTextField.getText()); // Nombre del cliente
-            pstmtVenta.setDouble(3, totalVenta); // Total de la venta
+            pstmtVenta.setDate(1, java.sql.Date.valueOf(java.time.LocalDate.now()));
+            pstmtVenta.setString(2, clienteTextField.getText());
+            pstmtVenta.setDouble(3, totalVenta);
 
             pstmtVenta.executeUpdate();
 
-            // Obtener el código de venta generado
             int codigoVentaGenerado = -1;
             ResultSet rsVenta = pstmtVenta.getGeneratedKeys();
             if (rsVenta.next()) {
                 codigoVentaGenerado = rsVenta.getInt(1);
             }
 
-            // Insertar detalles de venta en DetallesVenta
             for (Producto producto : tableView.getItems()) {
                 String insertDetalleVentaSQL = "INSERT INTO DetallesVenta (codigoVenta, codigoProducto, cantidadVendida, totalProducto, nombreProducto) VALUES (?, ?, ?, ?, ?)";
                 PreparedStatement pstmtDetalleVenta = conn.prepareStatement(insertDetalleVentaSQL);
                 pstmtDetalleVenta.setInt(1, codigoVentaGenerado);
-                pstmtDetalleVenta.setInt(2, producto.getCodigo()); // Obtener el código de producto desde el objeto Producto
+                pstmtDetalleVenta.setInt(2, producto.getCodigo());
                 pstmtDetalleVenta.setInt(3, producto.getCantidad());
                 pstmtDetalleVenta.setDouble(4, producto.getSubtotal());
-                pstmtDetalleVenta.setString(5, producto.getNombre()); // Agregar el nombre del producto
+                pstmtDetalleVenta.setString(5, producto.getNombre());
 
                 pstmtDetalleVenta.executeUpdate();
 
-                // Actualizar existencias en la tabla producto
                 String updateExistenciasSQL = "UPDATE producto SET cantidadProducto = cantidadProducto - ? WHERE codigoProducto = ?";
                 PreparedStatement pstmtExistencias = conn.prepareStatement(updateExistenciasSQL);
                 pstmtExistencias.setInt(1, producto.getCantidad());
@@ -243,12 +245,23 @@ public class Ventas {
         }
     }
 
+    private void quitarProductoSeleccionado() {
+        Producto productoSeleccionado = tableView.getSelectionModel().getSelectedItem();
+
+        if (productoSeleccionado != null) {
+            tableView.getItems().remove(productoSeleccionado);
+            actualizarTotalVenta();
+        } else {
+            mostrarMensajeError("Selecciona un producto para quitar.");
+        }
+    }
+
     public static class Producto {
         private final SimpleStringProperty nombre;
         private final SimpleIntegerProperty cantidad;
         private final SimpleDoubleProperty precio;
         private final SimpleDoubleProperty subtotal;
-        private final int codigo; // Código del producto
+        private final int codigo;
 
         public Producto(String nombre, int cantidad, double precio, double subtotal, int codigo) {
             this.nombre = new SimpleStringProperty(nombre);
@@ -294,7 +307,6 @@ public class Ventas {
             return subtotal;
         }
 
-        // Agrega métodos setter para actualizar cantidad y subtotal
         public void setCantidad(int cantidad) {
             this.cantidad.set(cantidad);
         }
@@ -304,5 +316,7 @@ public class Ventas {
         }
     }
 }
+
+
 
 
