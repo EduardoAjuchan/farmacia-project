@@ -35,21 +35,13 @@ public class HelloController {
         instance = this;
     }
 
-    public static HelloController getInstance() {
-        return instance;
-    }
-
     public void setMainStage(Stage mainStage) {
         this.mainStage = mainStage;
 
-        ButtonUser.setOnAction(event -> {
-            login();
-        });
+        ButtonUser.setOnAction(event -> login());
 
         // Configurar el evento para el botón "forgotPass"
-        forgotPassButton.setOnAction(event -> {
-            mostrarMensaje("Ponte en contacto con un administrador para restablecer tu contraseña");
-        });
+        forgotPassButton.setOnAction(event -> mostrarMensaje("Ponte en contacto con un administrador para restablecer tu contraseña"));
 
         enableLogin(textFieldUsername, passwordField, ButtonUser);
     }
@@ -142,11 +134,6 @@ public class HelloController {
         alert.showAndWait();
     }
 
-    // Agrega este método para borrar los campos de entrada
-    public void clearFields() {
-        textFieldUsername.clear();
-        passwordField.clear();
-    }
 }
 
 
