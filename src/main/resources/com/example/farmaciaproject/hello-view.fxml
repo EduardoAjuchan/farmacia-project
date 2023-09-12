@@ -33,12 +33,10 @@
    </JFXButton>
    <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
    <ImageView fitHeight="127.0" fitWidth="145.0" pickOnBounds="true" preserveRatio="true">
-      <image>
-         <Image url="@../../../image/logo.png" />
-      </image>
       <VBox.margin>
-         <Insets bottom="-20.0" left="600.0" top="-700.0" />
+         <Insets bottom="-20.0" left="600.0" top="-700.0"/>
       </VBox.margin>
+      <Image url="@../../../image/logo.png"/>
    </ImageView>
 
     <Label fx:id="welcomeText" />

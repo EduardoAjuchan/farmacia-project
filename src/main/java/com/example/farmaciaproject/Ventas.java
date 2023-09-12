@@ -98,8 +98,8 @@ public class Ventas {
 
         // Actualiza el texto del Label con el nombre de usuario
         Session session = Session.getInstance();
-        String username = session.getUser();
-        bienvenidoLabel.setText("¡Bienvenido, " + username + "!");
+        String nombreUsuario = session.getUser();
+        bienvenidoLabel.setText("¡Bienvenido, " + nombreUsuario + "!");
     }
 
     @FXML
@@ -196,7 +196,6 @@ public class Ventas {
         totalLabel.setText("Total: Q0.00");
     }
 
-
     private void actualizarTotalVenta() {
         double total = 0.0;
         for (Producto producto : tableView.getItems()) {
@@ -223,39 +222,46 @@ public class Ventas {
 
             Connection conn = DriverManager.getConnection(url, usuario, contraseña);
 
-            String insertVentaSQL = "INSERT INTO Ventas (fechaVenta, nombreCliente, totalVenta) VALUES (?, ?, ?)";
+            String insertVentaSQL = "INSERT INTO Ventas (fechaVenta, nombreCliente, totalVenta, nombreUsuario) VALUES (?, ?, ?, ?)";
             PreparedStatement pstmtVenta = conn.prepareStatement(insertVentaSQL, PreparedStatement.RETURN_GENERATED_KEYS);
             pstmtVenta.setDate(1, java.sql.Date.valueOf(java.time.LocalDate.now()));
             pstmtVenta.setString(2, nombreCliente);
             pstmtVenta.setDouble(3, totalVenta);
 
+            Session session = Session.getInstance();
+            String nombreUsuario = session.getUser(); // Obtener el nombre del usuario
+
+            pstmtVenta.setString(4, nombreUsuario); // Establecer el nombre del usuario
+
             pstmtVenta.executeUpdate();
 
-            int codigoVentaGenerado = -1;
-            ResultSet rsVenta = pstmtVenta.getGeneratedKeys();
-            if (rsVenta.next()) {
-                codigoVentaGenerado = rsVenta.getInt(1);
+            // Obtener el ID de la venta generada automáticamente
+            ResultSet generatedKeys = pstmtVenta.getGeneratedKeys();
+            int ventaId = -1;
+            if (generatedKeys.next()) {
+                ventaId = generatedKeys.getInt(1); // Obtiene el ID generado automáticamente
             }
+
+            // Insertar detalles de la venta en la tabla DetallesVenta
+            String insertDetallesSQL = "INSERT INTO DetallesVenta (codigoVenta, codigoProducto, nombreProducto, cantidadVendida, totalProducto) VALUES (?, ?, ?, ?, ?)";
+            PreparedStatement pstmtDetalles = conn.prepareStatement(insertDetallesSQL);
 
             for (Producto producto : productosVendidos) {
-                String insertDetalleVentaSQL = "INSERT INTO DetallesVenta (codigoVenta, codigoProducto, cantidadVendida, totalProducto, nombreProducto) VALUES (?, ?, ?, ?, ?)";
-                PreparedStatement pstmtDetalleVenta = conn.prepareStatement(insertDetalleVentaSQL);
-                pstmtDetalleVenta.setInt(1, codigoVentaGenerado);
-                pstmtDetalleVenta.setInt(2, producto.getCodigo());
-                pstmtDetalleVenta.setInt(3, producto.getCantidad());
-                pstmtDetalleVenta.setDouble(4, producto.getSubtotal());
-                pstmtDetalleVenta.setString(5, producto.getNombre());
-
-                pstmtDetalleVenta.executeUpdate();
-
-                String updateExistenciasSQL = "UPDATE producto SET cantidadProducto = cantidadProducto - ? WHERE codigoProducto = ?";
-                PreparedStatement pstmtExistencias = conn.prepareStatement(updateExistenciasSQL);
-                pstmtExistencias.setInt(1, producto.getCantidad());
-                pstmtExistencias.setInt(2, producto.getCodigo());
-                pstmtExistencias.executeUpdate();
+                pstmtDetalles.setInt(1, ventaId); // Asigna el ID de la venta
+                pstmtDetalles.setInt(2, producto.getCodigo()); // Código del producto
+                pstmtDetalles.setString(3, producto.getNombre()); // Nombre del producto
+                pstmtDetalles.setInt(4, producto.getCantidad()); // Cantidad vendida
+                pstmtDetalles.setDouble(5, producto.getSubtotal()); // Total del producto
+                pstmtDetalles.executeUpdate();
             }
 
+            // Cierra las conexiones y recursos
+            pstmtDetalles.close();
+            pstmtVenta.close();
             conn.close();
+
+            // ...
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -334,6 +340,8 @@ public class Ventas {
         }
     }
 }
+
+
 
 
 
