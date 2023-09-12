@@ -18,11 +18,13 @@ import javafx.stage.Stage;
 
 public class HelloController {
     @FXML
-    Button ButtonUser;
+    private Button ButtonUser;
     @FXML
-    TextField textFieldUsername;
+    private Button forgotPassButton;
     @FXML
-    PasswordField passwordField;
+    private TextField textFieldUsername;
+    @FXML
+    private PasswordField passwordField;
 
     private Stage mainStage; // Variable para la ventana principal
 
@@ -43,6 +45,12 @@ public class HelloController {
         ButtonUser.setOnAction(event -> {
             login();
         });
+
+        // Configurar el evento para el botón "forgotPass"
+        forgotPassButton.setOnAction(event -> {
+            mostrarMensaje("Ponte en contacto con un administrador para restablecer tu contraseña");
+        });
+
         enableLogin(textFieldUsername, passwordField, ButtonUser);
     }
 
@@ -64,6 +72,14 @@ public class HelloController {
             // Mostrar un mensaje de error al usuario
             mostrarMensajeError("Credenciales incorrectas");
         }
+    }
+
+    private void mostrarMensajeError(String credencialesIncorrectas) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText(credencialesIncorrectas);
+        alert.showAndWait();
     }
 
     private String autenticarYObtenerTipoUsuario(String username, String password) {
@@ -111,8 +127,6 @@ public class HelloController {
                 mainMenuController.disableControlDeUsuarios(); // Método para deshabilitar el botón
             }
 
-            // Aquí puedes realizar cualquier otra configuración necesaria para MainMenuController
-
             Scene scene = new Scene(root, 1080, 720); // Establecer las dimensiones deseadas
             mainStage.setScene(scene);
         } catch (IOException e) {
@@ -120,9 +134,9 @@ public class HelloController {
         }
     }
 
-    private void mostrarMensajeError(String mensaje) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Error");
+    private void mostrarMensaje(String mensaje) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Mensaje");
         alert.setHeaderText(null);
         alert.setContentText(mensaje);
         alert.showAndWait();
@@ -134,6 +148,7 @@ public class HelloController {
         passwordField.clear();
     }
 }
+
 
 
 

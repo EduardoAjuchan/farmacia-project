@@ -23,7 +23,7 @@
          <Insets left="-700.0" top="-190.0" />
       </VBox.margin>
    </ImageView>
-   <JFXButton focusTraversable="false" style="-fx-background-color: #1C2321;" styleClass="text-field-white-text" stylesheets="@../../../styles/styles.css" text="¿Olvidaste tu contraseña?" textFill="WHITE">
+   <JFXButton fx:id="forgotPassButton" focusTraversable="false" style="-fx-background-color: #1C2321;" styleClass="text-field-white-text" stylesheets="@../../../styles/styles.css" text="¿Olvidaste tu contraseña?" textFill="WHITE">
       <VBox.margin>
          <Insets right="-600.0" top="-100.0" />
       </VBox.margin>
