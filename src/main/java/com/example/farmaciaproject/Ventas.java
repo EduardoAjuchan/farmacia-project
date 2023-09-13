@@ -18,6 +18,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class Ventas {
     @FXML
     private Button ButtonVolver;
@@ -193,8 +194,12 @@ public class Ventas {
         cantidadTextField.clear();
         clienteTextField.clear();
         tableView.getItems().clear();
+
+        // Reiniciar la variable totalVenta después de cada venta
+        totalVenta = 0.0;
         totalLabel.setText("Total: Q0.00");
     }
+
 
     private void actualizarTotalVenta() {
         double total = 0.0;
@@ -260,12 +265,15 @@ public class Ventas {
             pstmtVenta.close();
             conn.close();
 
-            // ...
+            // Limpiar la lista de productos vendidos después de guardar la venta
+            productosVendidos.clear();
+
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
 
 
     private void quitarProductoSeleccionado() {
