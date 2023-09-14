@@ -11,15 +11,26 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-
+import javafx.scene.text.Text;
+import javafx.scene.control.Alert;
+import java.io.File;
 import java.io.IOException;
 import java.sql.*;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
-
+import jxl.Workbook;
+import jxl.write.Label;
+import jxl.write.WritableSheet;
+import jxl.write.WritableWorkbook;
 
 public class Ventas {
+    @FXML
+    private javafx.scene.control.Label totalLabel;
+    @FXML
+    private DatePicker dePicker;
+    @FXML
+    private DatePicker hastaPicker;
     @FXML
     private Button ButtonVolver;
     @FXML
@@ -39,16 +50,15 @@ public class Ventas {
     @FXML
     private TableColumn<Producto, Double> subtotalColumn;
     @FXML
-    private Label totalLabel;
-    @FXML
     private JFXButton agregarButton;
     @FXML
     private JFXButton quitarButton;
     @FXML
     private JFXButton venderButton;
     @FXML
-    private Label bienvenidoLabel;
-
+    private JFXButton exportButton;
+    @FXML
+    private javafx.scene.control.Label bienvenidoLabel;
     private Stage mainStage;
     private double totalVenta = 0.0;
 
@@ -85,6 +95,10 @@ public class Ventas {
 
         quitarButton.setOnAction(event -> {
             quitarProductoSeleccionado();
+        });
+
+        exportButton.setOnAction(event -> {
+            exportarAExcel();
         });
 
         venderButton.setOnAction(event -> {
@@ -197,9 +211,9 @@ public class Ventas {
 
         // Reiniciar la variable totalVenta después de cada venta
         totalVenta = 0.0;
-        totalLabel.setText("Total: Q0.00");
+        DecimalFormat decimalFormat = new DecimalFormat("#.00");
+        totalLabel.setText("Total: Q" + decimalFormat.format(totalVenta));
     }
-
 
     private void actualizarTotalVenta() {
         double total = 0.0;
@@ -268,9 +282,110 @@ public class Ventas {
             // Limpiar la lista de productos vendidos después de guardar la venta
             productosVendidos.clear();
 
-
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+
+    private void exportarAExcel() {
+        try {
+            Date fechaInicio = Date.valueOf(dePicker.getValue());
+            Date fechaFin = Date.valueOf(hastaPicker.getValue());
+
+            if (fechaInicio == null || fechaFin == null) {
+                mostrarMensajeError("Selecciona una fecha de inicio y una fecha final.");
+                return;
+            }
+
+            if (fechaFin.before(fechaInicio)) {
+                mostrarMensajeError("La fecha de inicio no puede ser posterior a la fecha final.");
+                return;
+            }
+
+            // Obtener la ruta del escritorio del usuario
+            String desktopPath = System.getProperty("user.home") + "/Desktop/";
+
+            // Crear un nuevo libro de trabajo de Excel en el escritorio
+            WritableWorkbook workbook = Workbook.createWorkbook(new File(desktopPath + "ventas.xls"));
+
+            // Crear una hoja de Excel
+            WritableSheet sheet = workbook.createSheet("Ventas", 0);
+
+            // Crear la fila de encabezados
+            sheet.addCell(new Label(0, 0, "CodigoVenta"));
+            sheet.addCell(new Label(1, 0, "FechaVenta"));
+            sheet.addCell(new Label(2, 0, "NombreCliente"));
+            sheet.addCell(new Label(3, 0, "TotalVenta"));
+            sheet.addCell(new Label(4, 0, "NombreUsuario"));
+            sheet.addCell(new Label(5, 0, "CodigoProducto"));
+            sheet.addCell(new Label(6, 0, "CantidadVendida"));
+            sheet.addCell(new Label(7, 0, "TotalProducto"));
+            sheet.addCell(new Label(8, 0, "NombreProducto"));
+
+            // Consultar la base de datos para obtener las ventas dentro del rango de fechas
+            String url = "jdbc:mysql://localhost:3306/bdnegocio";
+            String usuario = "root";
+            String contraseña = "123456";
+
+            try (Connection conn = DriverManager.getConnection(url, usuario, contraseña)) {
+                String selectSQL = "SELECT V.codigoVenta, V.fechaVenta, V.nombreCliente, V.totalVenta, V.nombreUsuario, " +
+                        "DV.codigoProducto, DV.cantidadVendida, DV.totalProducto, DV.nombreProducto " +
+                        "FROM Ventas V " +
+                        "INNER JOIN DetallesVenta DV ON V.codigoVenta = DV.codigoVenta " +
+                        "WHERE V.fechaVenta BETWEEN ? AND ?";
+
+                PreparedStatement pstmt = conn.prepareStatement(selectSQL);
+                pstmt.setDate(1, fechaInicio);
+                pstmt.setDate(2, fechaFin);
+
+                ResultSet rs = pstmt.executeQuery();
+                int rowNum = 1;
+
+                while (rs.next()) {
+                    // Obtener los datos de la consulta
+                    int codigoVenta = rs.getInt("codigoVenta");
+                    Date fechaVenta = rs.getDate("fechaVenta");
+                    String nombreCliente = rs.getString("nombreCliente");
+                    double totalVenta = rs.getDouble("totalVenta");
+                    String nombreUsuario = rs.getString("nombreUsuario");
+                    int codigoProducto = rs.getInt("codigoProducto");
+                    int cantidadVendida = rs.getInt("cantidadVendida");
+                    double totalProducto = rs.getDouble("totalProducto");
+                    String nombreProducto = rs.getString("nombreProducto");
+
+                    // Llenar la hoja de Excel con los datos
+                    sheet.addCell(new jxl.write.Number(0, rowNum, codigoVenta));
+                    sheet.addCell(new Label(1, rowNum, fechaVenta.toString()));
+                    sheet.addCell(new Label(2, rowNum, nombreCliente));
+                    sheet.addCell(new jxl.write.Number(3, rowNum, totalVenta));
+                    sheet.addCell(new Label(4, rowNum, nombreUsuario));
+                    sheet.addCell(new jxl.write.Number(5, rowNum, codigoProducto));
+                    sheet.addCell(new jxl.write.Number(6, rowNum, cantidadVendida));
+                    sheet.addCell(new jxl.write.Number(7, rowNum, totalProducto));
+                    sheet.addCell(new Label(8, rowNum, nombreProducto));
+
+                    rowNum++;
+                }
+
+                pstmt.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+                mostrarMensajeError("Error al consultar la base de datos.");
+                return;
+            }
+
+            // Escribir el libro en un archivo
+            workbook.write();
+            workbook.close();
+
+            mostrarMensajeExito("Datos exportados a Excel en el escritorio correctamente.");
+
+            // Limpiar los DatePicker
+            dePicker.setValue(null);
+            hastaPicker.setValue(null);
+        } catch (Exception e) {
+            e.printStackTrace();
+            mostrarMensajeError("Error al exportar los datos a Excel.");
         }
     }
 
@@ -348,6 +463,8 @@ public class Ventas {
         }
     }
 }
+
+
 
 
 

@@ -15,6 +15,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import javafx.scene.control.Label;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -25,6 +26,9 @@ import java.util.Optional;
 import static com.example.farmaciaproject.Main.mainStage;
 
 public class UserControl {
+
+    @FXML
+    private Label bienvenidoLabel;
 
     @FXML
     private TextField usuarioTextField;
@@ -63,6 +67,11 @@ public class UserControl {
         tipoUsuarioColumn.setCellValueFactory(new PropertyValueFactory<>("tipoUsuario"));
 
         updateTableView();
+
+        // Obtén el nombre de usuario actual desde la sesión
+        Session session = Session.getInstance();
+        String nombreUsuario = session.getUser();
+        bienvenidoLabel.setText("¡Bienvenido, " + nombreUsuario + "!");
     }
 
     @FXML
