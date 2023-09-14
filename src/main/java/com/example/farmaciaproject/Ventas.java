@@ -252,40 +252,48 @@ public class Ventas {
 
             pstmtVenta.setString(4, nombreUsuario); // Establecer el nombre del usuario
 
-            pstmtVenta.executeUpdate();
+            int affectedRows = pstmtVenta.executeUpdate();
 
-            // Obtener el ID de la venta generada automáticamente
-            ResultSet generatedKeys = pstmtVenta.getGeneratedKeys();
-            int ventaId = -1;
-            if (generatedKeys.next()) {
-                ventaId = generatedKeys.getInt(1); // Obtiene el ID generado automáticamente
+            if (affectedRows == 0) {
+                throw new SQLException("La inserción de la venta falló, no se generó ningún ID.");
             }
 
-            // Insertar detalles de la venta en la tabla DetallesVenta
-            String insertDetallesSQL = "INSERT INTO DetallesVenta (codigoVenta, codigoProducto, nombreProducto, cantidadVendida, totalProducto) VALUES (?, ?, ?, ?, ?)";
-            PreparedStatement pstmtDetalles = conn.prepareStatement(insertDetallesSQL);
+            // Obtener el ID de la venta generada automáticamente
+            try (ResultSet generatedKeys = pstmtVenta.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    int ventaId = generatedKeys.getInt(1); // Obtén el ID generado automáticamente
 
-            for (Producto producto : productosVendidos) {
-                pstmtDetalles.setInt(1, ventaId); // Asigna el ID de la venta
-                pstmtDetalles.setInt(2, producto.getCodigo()); // Código del producto
-                pstmtDetalles.setString(3, producto.getNombre()); // Nombre del producto
-                pstmtDetalles.setInt(4, producto.getCantidad()); // Cantidad vendida
-                pstmtDetalles.setDouble(5, producto.getSubtotal()); // Total del producto
-                pstmtDetalles.executeUpdate();
+                    // Insertar detalles de la venta en la tabla DetallesVenta
+                    String insertDetallesSQL = "INSERT INTO DetallesVenta (codigoVenta, codigoProducto, nombreProducto, cantidadVendida, totalProducto) VALUES (?, ?, ?, ?, ?)";
+                    PreparedStatement pstmtDetalles = conn.prepareStatement(insertDetallesSQL);
+
+                    for (Producto producto : productosVendidos) {
+                        pstmtDetalles.setInt(1, ventaId); // Asigna el ID de la venta
+                        pstmtDetalles.setInt(2, producto.getCodigo()); // Código del producto
+                        pstmtDetalles.setString(3, producto.getNombre()); // Nombre del producto
+                        pstmtDetalles.setInt(4, producto.getCantidad()); // Cantidad vendida
+                        pstmtDetalles.setDouble(5, producto.getSubtotal()); // Total del producto
+                        pstmtDetalles.executeUpdate();
+                    }
+
+                    pstmtDetalles.close();
+
+                    // Limpiar la lista de productos vendidos después de guardar la venta
+                    productosVendidos.clear();
+                } else {
+                    throw new SQLException("La inserción de la venta falló, no se generó ningún ID.");
+                }
             }
 
             // Cierra las conexiones y recursos
-            pstmtDetalles.close();
             pstmtVenta.close();
             conn.close();
-
-            // Limpiar la lista de productos vendidos después de guardar la venta
-            productosVendidos.clear();
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
 
     private void exportarAExcel() {
         try {
