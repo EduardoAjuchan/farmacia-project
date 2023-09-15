@@ -143,7 +143,17 @@ Para este proyecto, se utilizaron las siguientes tecnologías:
 - Haz clic en el botón "Exportar" para generar un archivo de reporte (.xls) de las ventas en el rango seleccionado.
 - El archivo se creará en el escritorio con el nombre "ventas.xls".
 
+
 ![Generar Reporte](https://i.imgur.com/l68nKFO.png)
+
+![imagen del archivo exportado en el escritorio](https://i.imgur.com/dJ0z3ou.png) 
+
+![imagen de la información contenida en el archivo exportado](https://i.imgur.com/IVOjMfC.png).
+
+### EXTRAS.
+- Menú principal cuando se ingresa con cuenta de "empleado": ![Menú Principal Empleado](https://i.imgur.com/vg0P9TV.png).
+
+- Mensaje al dar clic en "¿Olvidaste tu contraseña?" en el login: ![Mensaje Olvidar Contraseña](https://i.imgur.com/WnVzAnS.png).
 
 ## Diagrama Entidad Relación de la Base de Datos
 
