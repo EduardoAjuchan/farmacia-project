@@ -8,7 +8,6 @@ public class Session {
     private String userNombre; // Agregar el nombre del usuario
 
     private Session() {
-        // Constructor privado para garantizar que solo haya una instancia
     }
 
     public static Session getInstance() {

@@ -11,10 +11,13 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="720.0" prefWidth="1080.0" style="-fx-background-color: #1C2321;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.farmaciaproject.Ventas">
    <children>
+      <Rectangle arcHeight="15.0" arcWidth="15.0" fill="#535b61" height="306.0" layoutX="770.0" layoutY="144.0" stroke="BLACK" strokeType="INSIDE" width="216.0" />
+      <Rectangle arcHeight="15.0" arcWidth="15.0" fill="#535b61" height="68.0" layoutX="380.0" layoutY="102.0" stroke="BLACK" strokeType="INSIDE" width="346.0" />
       <ImageView fitHeight="344.0" fitWidth="1131.0" layoutX="-25.0" layoutY="468.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../image/wave-venta.png" />

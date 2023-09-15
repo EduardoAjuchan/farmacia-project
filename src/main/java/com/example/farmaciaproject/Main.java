@@ -21,22 +21,15 @@ public class Main extends Application {
         Parent root = fxmlLoader.load();
         HelloController controller = fxmlLoader.getController();
         controller.setMainStage(stage);
-
-        // Cargar MainMenuController sin la necesidad de setMainMenuController
         FXMLLoader mainMenuLoader = new FXMLLoader(Main.class.getResource("mainmenu.fxml"));
         Parent mainMenuRoot = mainMenuLoader.load();
         MainMenuController mainMenuController = mainMenuLoader.getController();
         mainMenuController.setMainStage(stage);
-
         // Se deshabilita el botón de maximizar
         stage.setResizable(false);
-
-        // Cargar el icono desde el archivo de recursos
         Image icon = new Image(getClass().getResourceAsStream("/image/logo.png"));
-
         // Configurar el icono en el primaryStage (ventana principal)
         stage.getIcons().add(icon);
-
         Scene scene = new Scene(root, 1080, 720);
         stage.setTitle("Farmacia EL DIFUNTO");
         stage.setScene(scene);

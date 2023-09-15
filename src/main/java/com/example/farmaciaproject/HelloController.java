@@ -1,19 +1,16 @@
 package com.example.farmaciaproject;
-
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 public class HelloController {
@@ -26,9 +23,8 @@ public class HelloController {
     @FXML
     private PasswordField passwordField;
 
-    private Stage mainStage; // Variable para la ventana principal
+    private Stage mainStage;
 
-    // Variable estática para almacenar la instancia de HelloController
     private static HelloController instance;
 
     public HelloController() {
@@ -40,7 +36,6 @@ public class HelloController {
 
         ButtonUser.setOnAction(event -> login());
 
-        // Configurar el evento para el botón "forgotPass"
         forgotPassButton.setOnAction(event -> mostrarMensaje("Ponte en contacto con un administrador para restablecer tu contraseña"));
 
         enableLogin(textFieldUsername, passwordField, ButtonUser);
@@ -58,10 +53,8 @@ public class HelloController {
             session.setUser(username);
             session.setUserType(userType);
 
-            // Navegar a la pantalla del menú principal
             loadMainMenu();
         } else {
-            // Mostrar un mensaje de error al usuario
             mostrarMensajeError("Credenciales incorrectas");
         }
     }
@@ -90,18 +83,17 @@ public class HelloController {
             if (rsUsuario.next()) {
                 return rsUsuario.getString("tipo_usuario");
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return null; // Si las credenciales son incorrectas o no se encuentra el usuario
+        return null;
     }
 
     public static void enableLogin(TextField usernameField, PasswordField passwordField, Button loginButton) {
-        // Habilita la funcionalidad de inicio de sesión nuevamente
-        usernameField.setDisable(false); // Habilita el campo de entrada de usuario
-        passwordField.setDisable(false); // Habilita el campo de entrada de contraseña
-        loginButton.setDisable(false); // Habilita el botón de inicio de sesión
+        usernameField.setDisable(false);
+        passwordField.setDisable(false);
+        loginButton.setDisable(false);
     }
 
     private void loadMainMenu() {
@@ -110,16 +102,15 @@ public class HelloController {
             Parent root = fxmlLoader.load();
 
             MainMenuController mainMenuController = fxmlLoader.getController();
-            mainMenuController.setMainStage(mainStage); // mainStage en el controlador MainMenuController
+            mainMenuController.setMainStage(mainStage);
 
-            // Verificar el tipo de usuario y deshabilitar el botón "Control de usuarios" si es "Empleado"
             Session session = Session.getInstance();
             String userType = session.getUserType();
             if ("empleado".equals(userType)) {
-                mainMenuController.disableControlDeUsuarios(); // Método para deshabilitar el botón
+                mainMenuController.disableControlDeUsuarios();
             }
 
-            Scene scene = new Scene(root, 1080, 720); // Establecer las dimensiones deseadas
+            Scene scene = new Scene(root, 1080, 720);
             mainStage.setScene(scene);
         } catch (IOException e) {
             e.printStackTrace();
@@ -133,8 +124,8 @@ public class HelloController {
         alert.setContentText(mensaje);
         alert.showAndWait();
     }
-
 }
+
 
 
 

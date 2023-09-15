@@ -25,6 +25,14 @@ import java.util.Optional;
 public class ProductoControl {
     private Stage mainStage;
     private boolean isControlUsuariosEnabled = true;
+    @FXML
+    private TextField buscarField;
+
+    @FXML
+    private CheckBox cantidadBox;
+
+    @FXML
+    private JFXButton buscarButton;
 
     @FXML
     private TextField productoTextField;
@@ -94,30 +102,126 @@ public class ProductoControl {
         productoColumn.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         cantidadColumn.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
         precioColumn.setCellValueFactory(new PropertyValueFactory<>("precio"));
-
-        // Para la columna de fechaVencimiento, necesitas usar un Callback personalizado
         vencimientoColumn.setCellValueFactory(cellData -> {
             SimpleObjectProperty<Date> property = new SimpleObjectProperty<>(cellData.getValue().getFechaVencimiento());
             return property;
         });
         productosTableView.setItems(productosList);
+
         // Configuración de los manejadores de eventos de los botones
         guardarButton.setOnAction(this::onGuardarButtonClick);
         modificarButton.setOnAction(this::onModificarButtonClick);
         eliminarButton.setOnAction(this::onEliminarButtonClick);
         limpiarButton.setOnAction(this::onLimpiarButtonClick);
-
-        // Obtén el nombre de usuario desde la sesión (ajusta esto según cómo lo obtienes)
+        buscarButton.setOnAction(this::onBuscarButtonClick);
         Session session = Session.getInstance();
-        String username = session.getUser(); // Ajusta esto según el método que tengas en Session
-
-        // Configura el texto del Label para mostrar el nombre de usuario
+        String username = session.getUser();
         bienvenidoLabel.setText("¡Bienvenido, " + username + "!");
 
         updateTableView();
     }
 
+    @FXML
+    private void onBuscarButtonClick(ActionEvent event) {
+        // Obtener el texto del campo de búsqueda
+        String busqueda = buscarField.getText().trim();
 
+        // Verificar si el checkbox está seleccionado para realizar una búsqueda por cantidad
+        if (cantidadBox.isSelected()) {
+            try {
+                int cantidad = Integer.parseInt(busqueda);
+                // Realizar búsqueda por cantidad y actualizar la tabla
+                buscarPorCantidad(cantidad);
+            } catch (NumberFormatException e) {
+                showAlert("Entrada inválida", "Por favor, ingresa un número para buscar por cantidad.");
+            }
+        } else {
+            // Realizar búsqueda por nombre o código y actualizar la tabla
+            buscarPorNombreOCodigo(busqueda);
+        }
+    }
+
+    private List<Producto> buscarPorCantidad(int cantidad) {
+        List<Producto> productos = new ArrayList<>();
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+            String selectQuery = "SELECT * FROM producto WHERE cantidadProducto = ?";
+            preparedStatement = connection.prepareStatement(selectQuery);
+            preparedStatement.setInt(1, cantidad);
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                int id = resultSet.getInt("codigoProducto");
+                String nombre = resultSet.getString("nombreProducto");
+                double precio = resultSet.getDouble("precioUnitario");
+                int cantidadProducto = resultSet.getInt("cantidadProducto");
+                Date fechaVencimiento = resultSet.getDate("fechaVencimiento");
+
+                Producto producto = new Producto(nombre, cantidadProducto, precio, fechaVencimiento);
+                producto.setId(id);
+                productos.add(producto);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            showAlert("Error", "Error al buscar productos por cantidad.");
+        } finally {
+            closeResources(connection, preparedStatement, resultSet);
+        }
+
+        // Actualiza el contenido del TableView con los resultados
+        productosList.clear();
+        productosList.addAll(productos);
+
+        return productos;
+    }
+    private List<Producto> buscarPorNombreOCodigo(String busqueda) {
+        List<Producto> productos = new ArrayList<>();
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+            String selectQuery = "SELECT * FROM producto WHERE nombreProducto LIKE ? OR codigoProducto = ?";
+            preparedStatement = connection.prepareStatement(selectQuery);
+            preparedStatement.setString(1, "%" + busqueda + "%");
+            try {
+                int codigo = Integer.parseInt(busqueda);
+                preparedStatement.setInt(2, codigo);
+            } catch (NumberFormatException e) {
+                preparedStatement.setInt(2, -1); // Un valor que no existe para evitar errores
+            }
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                int id = resultSet.getInt("codigoProducto");
+                String nombre = resultSet.getString("nombreProducto");
+                double precio = resultSet.getDouble("precioUnitario");
+                int cantidad = resultSet.getInt("cantidadProducto");
+                Date fechaVencimiento = resultSet.getDate("fechaVencimiento");
+
+                Producto producto = new Producto(nombre, cantidad, precio, fechaVencimiento);
+                producto.setId(id);
+                productos.add(producto);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            showAlert("Error", "Error al buscar productos por nombre o código.");
+        } finally {
+            closeResources(connection, preparedStatement, resultSet);
+        }
+        productosList.clear();
+        productosList.addAll(productos);
+
+        return productos;
+    }
+    private void closeResources(Connection connection, PreparedStatement preparedStatement, ResultSet resultSet) {
+        // Cerrar recursos (gestión de errores omitida)
+    }
     @FXML
     private void onGuardarButtonClick(ActionEvent event) {
         String producto = productoTextField.getText().trim();
@@ -219,8 +323,6 @@ public class ProductoControl {
         try {
             // Establecer la conexión a la base de datos
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
-
-            // Preparar la consulta SQL para la inserción
             String insertQuery = "INSERT INTO producto (nombreProducto, precioUnitario, cantidadProducto, fechaVencimiento) VALUES (?, ?, ?, ?)";
             preparedStatement = connection.prepareStatement(insertQuery);
             preparedStatement.setString(1, producto.getNombre());
@@ -228,7 +330,6 @@ public class ProductoControl {
             preparedStatement.setInt(3, producto.getCantidad());
             preparedStatement.setDate(4, producto.getFechaVencimiento());
 
-            // Ejecutar la consulta
             preparedStatement.executeUpdate();
 
             showAlert("Éxito", "Producto insertado correctamente.");
@@ -259,17 +360,11 @@ public class ProductoControl {
         PreparedStatement preparedStatement = null;
 
         try {
-            // Establecer la conexión a la base de datos
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
-
-            // Preparar la consulta SQL para la eliminación
             String deleteQuery = "DELETE FROM producto WHERE codigoProducto = ?";
             preparedStatement = connection.prepareStatement(deleteQuery);
             preparedStatement.setInt(1, productoId);
-
-            // Ejecutar la consulta
             int rowsAffected = preparedStatement.executeUpdate();
-
             if (rowsAffected > 0) {
                 showAlert("Éxito", "Producto eliminado correctamente.");
             } else {
@@ -279,7 +374,6 @@ public class ProductoControl {
             e.printStackTrace();
             showAlert("Error", "Error al eliminar el producto de la base de datos.");
         } finally {
-            // Cerrar recursos
             if (preparedStatement != null) {
                 try {
                     preparedStatement.close();
@@ -304,24 +398,16 @@ public class ProductoControl {
         ResultSet resultSet = null;
 
         try {
-            // Establecer la conexión a la base de datos
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
-
-            // Crear una declaración SQL
             statement = connection.createStatement();
-
-            // Ejecutar la consulta para obtener todos los productos
             String selectQuery = "SELECT * FROM producto";
             resultSet = statement.executeQuery(selectQuery);
-
-            // Procesar los resultados
             while (resultSet.next()) {
                 int id = resultSet.getInt("codigoProducto");
                 String nombre = resultSet.getString("nombreProducto");
                 double precio = resultSet.getDouble("precioUnitario");
                 int cantidad = resultSet.getInt("cantidadProducto");
                 Date fechaVencimiento = resultSet.getDate("fechaVencimiento");
-
                 Producto producto = new Producto(nombre, cantidad, precio, fechaVencimiento);
                 producto.setId(id); // Asignar el valor de id obtenido de la base de datos
                 productos.add(producto);
@@ -370,11 +456,9 @@ public class ProductoControl {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("mainmenu.fxml"));
             Parent root = loader.load();
-
             MainMenuController mainMenuController = loader.getController();
-            mainMenuController.setMainStage(mainStage); // Configura el mainStage en el controlador MainMenuController
-
-            Scene scene = new Scene(root, 1080, 720); // Establece las dimensiones deseadas
+            mainMenuController.setMainStage(mainStage);
+            Scene scene = new Scene(root, 1080, 720);
             mainStage.setScene(scene);
         } catch (IOException e) {
             e.printStackTrace();

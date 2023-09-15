@@ -12,7 +12,7 @@ module com.example.farmaciaproject {
     requires com.almasb.fxgl.all;
     requires com.jfoenix;
     requires java.sql;
-    requires jasperreports;
+
     requires jxl;
 
     opens com.example.farmaciaproject to javafx.fxml;

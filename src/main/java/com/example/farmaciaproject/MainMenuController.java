@@ -50,14 +50,11 @@ public class MainMenuController {
         Session session = Session.getInstance();
         String username = session.getUser();
         bienvenidoLabel.setText("¡Bienvenido, " + username + "!");
-
         // Verifica el tipo de usuario y deshabilita el botón "Control de Usuarios" si es "Empleado"
         String userType = session.getUserType();
         if ("Empleado".equalsIgnoreCase(userType)) {
-            isControlUsuariosEnabled = false; // Deshabilitar el botón "Control de Usuarios"
+            isControlUsuariosEnabled = false;
         }
-
-        // Si el botón "Control de Usuarios" debe estar deshabilitado, lo deshabilitamos
         ButtonUser.setDisable(!isControlUsuariosEnabled);
     }
 
@@ -84,13 +81,10 @@ public class MainMenuController {
     private void onLogoutButtonClick() {
         // Elimina los datos de sesión
         Session.getInstance().clearSession();
-
         // Cierra la aplicación
         Stage stage = (Stage) logoutButton.getScene().getWindow();
         stage.close();
     }
-
-
     private void loadAndSetScene(String fxmlFileName) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileName));

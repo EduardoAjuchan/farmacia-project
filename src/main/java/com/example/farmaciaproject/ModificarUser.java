@@ -25,8 +25,8 @@ public class ModificarUser {
     @FXML
     private JFXButton modificarButton;
 
-    private Usuario usuario; // Referencia al usuario actual
-    private UserControl userControl; // Referencia al controlador UserControl
+    private Usuario usuario;
+    private UserControl userControl;
 
     public void initialize() {
         tipoUsuarioComboBox.getItems().addAll("empleado", "administrador");
@@ -46,12 +46,9 @@ public class ModificarUser {
             String nuevoUsuario = usuarioTextField.getText();
             String nuevaContrasena = contrasenaTextField.getText();
             String nuevoTipoUsuario = tipoUsuarioComboBox.getValue();
-
-            // Detalles de la conexión a la base de datos
             String url = "jdbc:mysql://localhost:3306/bdnegocio";
             String username = "root";
             String password = "123456";
-
             try (Connection connection = DriverManager.getConnection(url, username, password)) {
                 String query = "UPDATE usuarios SET nombre_usuario = ?, contrasena = ?, tipo_usuario = ? WHERE id = ?";
                 try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -60,24 +57,18 @@ public class ModificarUser {
                     preparedStatement.setString(3, nuevoTipoUsuario);
                     preparedStatement.setInt(4, usuario.getId());
                     preparedStatement.executeUpdate();
-
-                    // Muestra un mensaje de éxito
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Éxito");
                     alert.setHeaderText(null);
                     alert.setContentText("Usuario modificado exitosamente.");
                     alert.showAndWait();
 
-                    // Notifica al controlador UserControl que se ha realizado una modificación
                     if (userControl != null) {
                         userControl.usuarioModificado(usuario.getId());
                     }
-
-                    // Cierra la ventana actual de modificación
                     modificarButton.getScene().getWindow().hide();
                 } catch (SQLException e) {
                     e.printStackTrace();
-                    // Muestra un mensaje de error si ocurre un problema al actualizar
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Error");
                     alert.setHeaderText(null);

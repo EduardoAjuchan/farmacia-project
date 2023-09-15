@@ -199,16 +199,13 @@ public class Ventas {
             mostrarMensajeError("Debe ingresar al menos un producto.");
             return; // Salir de la función si no hay productos en el TableView
         }
-
         String nombreCliente = clienteTextField.getText().isEmpty() ? "CF" : clienteTextField.getText();
         guardarVentaEnBaseDeDatos(nombreCliente);
         mostrarMensajeExito("Venta realizada con éxito");
-
         codigoTextField.clear();
         cantidadTextField.clear();
         clienteTextField.clear();
         tableView.getItems().clear();
-
         // Reiniciar la variable totalVenta después de cada venta
         totalVenta = 0.0;
         DecimalFormat decimalFormat = new DecimalFormat("#.00");
@@ -238,9 +235,7 @@ public class Ventas {
             String url = "jdbc:mysql://localhost:3306/bdnegocio";
             String usuario = "root";
             String contraseña = "123456";
-
             Connection conn = DriverManager.getConnection(url, usuario, contraseña);
-
             String insertVentaSQL = "INSERT INTO Ventas (fechaVenta, nombreCliente, totalVenta, nombreUsuario) VALUES (?, ?, ?, ?)";
             PreparedStatement pstmtVenta = conn.prepareStatement(insertVentaSQL, PreparedStatement.RETURN_GENERATED_KEYS);
             pstmtVenta.setDate(1, java.sql.Date.valueOf(java.time.LocalDate.now()));
@@ -261,8 +256,7 @@ public class Ventas {
             // Obtener el ID de la venta generada automáticamente
             try (ResultSet generatedKeys = pstmtVenta.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
-                    int ventaId = generatedKeys.getInt(1); // Obtén el ID generado automáticamente
-
+                    int ventaId = generatedKeys.getInt(1);
                     // Insertar detalles de la venta en la tabla DetallesVenta
                     String insertDetallesSQL = "INSERT INTO DetallesVenta (codigoVenta, codigoProducto, nombreProducto, cantidadVendida, totalProducto) VALUES (?, ?, ?, ?, ?)";
                     PreparedStatement pstmtDetalles = conn.prepareStatement(insertDetallesSQL);
@@ -277,15 +271,12 @@ public class Ventas {
                     }
 
                     pstmtDetalles.close();
-
                     // Limpiar la lista de productos vendidos después de guardar la venta
                     productosVendidos.clear();
                 } else {
                     throw new SQLException("La inserción de la venta falló, no se generó ningún ID.");
                 }
             }
-
-            // Cierra las conexiones y recursos
             pstmtVenta.close();
             conn.close();
 
@@ -396,9 +387,6 @@ public class Ventas {
             mostrarMensajeError("Error al exportar los datos a Excel.");
         }
     }
-
-
-
     private void quitarProductoSeleccionado() {
         Producto productoSeleccionado = tableView.getSelectionModel().getSelectedItem();
 

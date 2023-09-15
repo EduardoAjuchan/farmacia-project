@@ -68,7 +68,7 @@ public class UserControl {
 
         updateTableView();
 
-        // Obtén el nombre de usuario actual desde la sesión
+        // Obtener el nombre de usuario actual desde la sesión
         Session session = Session.getInstance();
         String nombreUsuario = session.getUser();
         bienvenidoLabel.setText("¡Bienvenido, " + nombreUsuario + "!");
