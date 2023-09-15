@@ -271,6 +271,10 @@ public class Ventas {
                     }
 
                     pstmtDetalles.close();
+
+                    // Actualizar las existencias de productos en la tabla "productos"
+                    actualizarExistenciasProductos(conn);
+
                     // Limpiar la lista de productos vendidos después de guardar la venta
                     productosVendidos.clear();
                 } else {
@@ -284,6 +288,20 @@ public class Ventas {
             e.printStackTrace();
         }
     }
+
+    private void actualizarExistenciasProductos(Connection conn) {
+        String updateProductoSQL = "UPDATE producto SET cantidadProducto = cantidadProducto - ? WHERE codigoProducto = ?";
+        try (PreparedStatement pstmtProducto = conn.prepareStatement(updateProductoSQL)) {
+            for (Producto producto : productosVendidos) {
+                pstmtProducto.setInt(1, producto.getCantidad()); // Resta la cantidad vendida
+                pstmtProducto.setInt(2, producto.getCodigo()); // Código del producto
+                pstmtProducto.executeUpdate();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 
     private void exportarAExcel() {
