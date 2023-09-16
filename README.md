@@ -27,12 +27,11 @@ Estructura principal de carpetas:
 | farmacia-project | Carpeta raíz del proyecto |
 | src | Carpeta de código fuente |
 | main | Carpeta principal |
-| java | Carpeta de archivos Java |
-| clases | Carpeta que contiene las clases del proyecto |
 | resources | Carpeta de recursos |
+| java | Carpeta de archivos Java |
 | com | Carpeta que contiene los archivos .fxml |
 | images | Carpeta que contiene las imágenes del proyecto |
-| css | Carpeta que contiene los archivos CSS del proyecto |
+| styles | Carpeta que contiene los archivos CSS del proyecto |
 
 
 ## Tecnologías Utilizadas
