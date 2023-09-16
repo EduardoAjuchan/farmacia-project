@@ -198,7 +198,7 @@ Para este proyecto, se utilizaron las siguientes tecnologías:
 
 - [Curso de JavaFX](https://www.youtube.com/watch?v=VMOJ33m0Ooc&list=PLNjWMbvTJAIjLRW2qyuc4DEgFVW5YFRSR&pp=iAQB)
 - [Crear y exportar reportes a Excel](https://www.youtube.com/watch?v=rb9cVI_Ee-0&ab_channel=NekoCode)
-- [Crear reportes con Jasper Report (Si quieres exportar en PDF)](https://www.youtube.com/watch?v=KSdHTGhHrIU&t=981s&ab_channel=C%C3%B3digosdeProgramaci%C3%B3n-MR)
+- [Crear reportes con Jasper Report (Si quieres exportar en PDF)](https://youtu.be/KSdHTGhHrIU)
 - [Uso de JFoenix para JavaFX y SceneBuilder](https://www.youtube.com/watch?v=S5Vb5r1_zVU&list=PLjOFHn8uDrvTRF9hkhFYv4IxijrzhXir_&ab_channel=AbdulAzizAhwan)
   
 ## Contacto
