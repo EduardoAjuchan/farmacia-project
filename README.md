@@ -11,7 +11,7 @@ El proyecto está desarrollado principalmente en Java con el IDE JetBrains Intel
 Al ser un proyecto desarrollado con JavaFX consta principalmente de dos partes, la parte donde se define la interfaz grafica, que es un archivo con extención .fxml, en esta parte se definen los "id" de cada componente grafico utilizado y de esta forma se puedan programar sus funciones, la otra parte son las clases de java (archivos con extención .java), estas clases funcionan como "controlador" para la parte gráfica (archivo .fxml) aquí se programan las funciones de cada elemento en cada escena (ventana) y se llaman a los componentes gráficos para que puedan realizar las funcionalidades deseadas. También se utilizan otras clases que no son controladores de una interfaz gráfica pero cumplen funciones como: Guardar datos de la sesion del usuario, conectar a la base de datos y hacer consultas, y la clase principal (Main) donde se definen las características globales de las escenas (ventanas) y la cual será el "lanzador" de la aplicación.
 
 ### ¡Importante!
-**Utiliza el historial de commits para entender mejor como fue programado el codigo y como fueron agregadas las diferentes funcionalidades, además de guiarte de los comentarios en las partes importantes del codigo***
+**Utiliza el historial de commits para entender mejor como fue programado el codigo y como fueron agregadas las diferentes funcionalidades, además de guiarte de los comentarios en las partes importantes del codigo**
 
 ### Las características principales del software son:
 - Version de JDK utilizado: JDK 20.
