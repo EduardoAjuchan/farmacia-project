@@ -34,7 +34,7 @@ Estructura principal de carpetas:
 | styles | Carpeta que contiene los archivos CSS del proyecto |
 
 
-## Tecnologías Utilizadas
+### Tecnologías Utilizadas
 
 <div style="display: flex;">
   <img src="https://repository-images.githubusercontent.com/400161932/257a8be2-bbf2-4218-a55b-219d819578b2" alt="JavaFX" width="150"/>
@@ -44,7 +44,7 @@ Estructura principal de carpetas:
   <img src="https://static.vecteezy.com/system/resources/previews/009/617/298/non_2x/dap-triangle-letter-logo-design-with-triangle-shape-dap-triangle-logo-design-monogram-dap-triangle-logo-template-with-red-color-dap-triangular-logo-simple-elegant-and-luxurious-logo-vector.jpg" alt="Jexcelapi" width="100"/>
 </div>
 
-## Configuración del Proyecto
+### Configuración del Proyecto
 
 Para este proyecto, se utilizaron las siguientes tecnologías:
 
@@ -54,7 +54,7 @@ Para este proyecto, se utilizaron las siguientes tecnologías:
 - **[MySQL Connector]** Conector para trabajar con la base de datos MySQL.
 - **[JExcelApi]** Librería para generar y exportar archivos en formato xls (Excel).
 
-## Enlaces a los recursos utilizados
+### Enlaces a los recursos utilizados
 - [IDE IntelliJ ](https://www.jetbrains.com/es-es/idea/download/?section=windows)
 - [Librería JavaFX](https://openjfx.io/)
 - [Librería JFoenix](https://github.com/sshahine/JFoenix)
